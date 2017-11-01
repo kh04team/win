@@ -1,9 +1,6 @@
-kh04team@gmail.com
-kh04!@34
+id : kh04team@gmail.com
+pass : kh04!@34
 
-kh04team@gmail.com
-kh04!@34
+gitname : kh04teamwin
 
-kh04teamwin
-
-https://github.com/kh04team/win.git
+git_address : https://github.com/kh04team/win.git
