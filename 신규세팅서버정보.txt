@@ -1,0 +1,28 @@
+id : root
+passwd : admin!@34
+
+tomcat6 path
+/usr/share/tomcat6
+
+server.xml path
+/etc/server.xml
+
+확인 URL : http://lovecd.cafe24.com:8080/KH18_3/listAction.action
+
+톰캣6 재시작 명령어 : service tomcat6 restart
+
+iptables 설정
+iptables -I INPUT 1 -p tcp --dport 8080 -j ACCEPT
+iptables -I OUTPUT 1 -p tcp --dport 8080 -j ACCEPT
+
+iptables -I INPUT 1 -p tcp --dport 1521 -j ACCEPT
+iptables -I OUTPUT 1 -p tcp --dport 1521 -j ACCEPT
+
+
+service iptables restart
+
+* 설치된 오라클 관련 정보(dbconnect.properties)
+driver=oracle.jdbc.driver.OracleDriver
+url=jdbc:oracle:thin:@218.38.52.212:1521:gdbora1
+username=kh04team
+password=kh04team
