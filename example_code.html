@@ -4,6 +4,7 @@
 
 	   		$("#category_control").click(function () {
 	   			
+				/*
 	   			if($("#category_name").val() == "")
 	   			{
 	   				alert("카테고리 이름을 입력해주세요.");	
@@ -14,6 +15,12 @@
 	   			$("#category_no").val("");
 	   			
    				$('#category_form').attr({action:'cateogyrWriteAction.action', method:'post'}).submit();
+				*/
+				if(confirm("이동하시겠습니까?")) 
+				{
+					location.href = "/상위경로URL.action";
+				}
+
 	   		});
 
 		});
