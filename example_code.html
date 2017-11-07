@@ -1,0 +1,21 @@
+<script type="text/javascript">
+
+		$(function() {
+
+	   		$("#category_control").click(function () {
+	   			
+	   			if($("#category_name").val() == "")
+	   			{
+	   				alert("카테고리 이름을 입력해주세요.");	
+	   				$("#category_name").focus();
+	   				return;
+	   			}
+	   			
+	   			$("#category_no").val("");
+	   			
+   				$('#category_form').attr({action:'cateogyrWriteAction.action', method:'post'}).submit();
+	   		});
+
+		});
+
+</script>
