@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">      
+    
+<!-- 용량제한 100MB로 설정 -->
+<struts>
+<constant name="struts.multipart.maxSize" value="104857600" />
+
+	<package name="shop" extends="struts-default">
+		<!-- 글로벌 예외 처리 화면 설정 -->
+		
+	    <result-types>
+	     <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+	    </result-types>
+
+	    <action name="faq_main">
+	     <result name="success" type="tiles">
+	      faq_main
+	     </result>
+	    </action>
+
+	    <action name="mem_main">
+	     <result name="success" type="tiles">
+	      user_main
+	     </result>
+	    </action>
+	
+	    <action name="main">
+	     <result name="success" type="tiles">
+	      main_body
+	     </result>
+	    </action>
+	
+	    <action name="goodslist">
+	     <result name="success" type="tiles">
+	      goods_list
+	     </result>
+	    </action>
+	    
+	    <action name="shopdetail">
+	     <result name="success" type="tiles">
+	      shop_detail_list
+	     </result>
+	    </action>    
+	    
+	    <action name="adminmain" class="category.categoryListAction">
+	     <result name="success" type="tiles">
+	      admin_main
+	     </result>
+	    </action>   
+	
+	    <action name="adGoodsList" class="admin.adGoodsList">
+	     <result name="success" type="tiles">
+	      admin_goods
+	     </result>
+	    </action>   
+
+	    <action name="adGoodsWriteForm" class="admin.adGoodsWriteForm">
+	     <result name="success" type="tiles">
+	      admin_goods_write
+	     </result>
+	    </action>   
+		
+		<action name="adGoodsWrite" class="admin.adGoodsWrite">
+			<interceptor-ref name="params"/>
+			<result type="redirect-action">
+				<param name="actionName">adGoodsList</param>
+			</result>
+		</action>		
+		
+		<action name="cateogyrWriteAction" class="category.categoryWriteAction">
+			<interceptor-ref name="params"/>
+			<result type="redirect-action">
+				<param name="actionName">adminmain</param>
+			</result>
+		</action>
+		
+		<action name="categoryModifyAction" class="category.categoryModifyAction">
+			<interceptor-ref name="params"/>
+			<result type="redirect-action">
+				<param name="actionName">adminmain</param>
+			</result>
+		</action>
+	
+	</package>
+
+</struts>
