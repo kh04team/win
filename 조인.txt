@@ -1,0 +1,2 @@
+﻿select * from goods join goods_order ON goods.goods_num = goods_order.order_goods_num join member on goods_order.order_member_id = member.member_id
+select * from goods, goods_order, member where goods.goods_num = goods_order.order_goods_num and member.member_id = goods_order.order_member_id
