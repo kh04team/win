@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">      
+    
+<!-- 용량제한 100MB로 설정 -->
+<struts>
+<constant name="struts.multipart.maxSize" value="104857600" />
+<!-- <constant name="struts.multipart.saveDir" value="D:\\source\\java\\upload\\" /> -->
+
+	<package name="icase" extends="struts-default">
+		<!-- 글로벌 예외 처리 화면 설정 -->
+		
+	    <result-types>
+	     <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+	    </result-types>
+	
+	    <action name="main">
+	     <result name="success" type="tiles">
+	      main_body
+	     </result>
+	    </action>
+
+		<action name="adGoodsModify" class="admin.adGoodsModify">
+			<result name="success" type="redirect">adGoodsList.action</result>
+		</action>	
+
+		<action name="basket_delete" class="basket.basketWrite" method="delete">
+			<result type="redirect-action">
+				<param name="actionName">basketall</param>
+			</result>
+		</action>	
+
+		<action name="basket_process" class="basket.basketWrite">
+			<result type="redirect-action">
+				<param name="actionName">basketall</param>
+			</result>
+		</action>	
+
+	    <action name="basketall" class="basket.basketList">
+	     <result name="success" type="tiles">
+	      basket_content
+	     </result>
+	    </action>
+	
+	    <action name="goodslist" class="goods.goodsList">
+	     <result name="success" type="tiles">
+	      goods_list
+	     </result>
+	    </action>
+	    
+	    <action name="shopdetail" class="goods.goodsView">
+	     <result name="success" type="tiles">
+	      shop_detail_list
+	     </result>
+	    </action>    
+	    
+	    <action name="adminmain" class="category.categoryListAction">
+	     <result name="success" type="tiles">
+	      admin_main
+	     </result>
+	    </action>   
+	
+	    <action name="adGoodsList" class="admin.adGoodsList">
+	     <result name="success" type="tiles">
+	      admin_goods
+	     </result>
+	    </action>   
+
+	    <action name="product_list_del" class="admin.product_list_del">
+    		<interceptor-ref name = "params"/>    		
+    		<result name="success">/admin/production/ajax_result.jsp</result>	    
+	    </action>
+
+	    <action name="adGoodsWriteForm" class="admin.adGoodsWriteForm">
+	     <result name="success" type="tiles">
+	      admin_goods_write
+	     </result>
+	    </action>   
+	    
+	    <action name="adGoodsModifyForm" class="admin.adGoodsModifyForm">
+	     <result name="success" type="tiles">
+	      admin_goods_modify
+	     </result>
+	    </action> 		
+
+	    <action name="basketlist">
+	     <result name="success" type="tiles">
+	      basket_content
+	     </result>
+	    </action> 
+
+		<action name="fileDownloadAction" class="admin.adGoodsModifyForm" method="download">
+			<result name="success" type="stream">
+		               <param name="contentType">binary/octet-stream</param>
+		               <param name="inputName">inputStream</param>
+		               <param name="contentDisposition">${contentDisposition}</param>
+		               <param name="contentLength">${contentLength}</param> 
+		               <param name="bufferSize">409600</param>
+		        </result>
+		</action>
+				
+		<action name="fileDownloadAction2" class="admin.adGoodsModifyForm" method="download2">
+			<result name="success" type="stream">
+		               <param name="contentType">binary/octet-stream</param>
+		               <param name="inputName">inputStream</param>
+		               <param name="contentDisposition">${contentDisposition}</param>
+		               <param name="contentLength">${contentLength}</param> 
+		               <param name="bufferSize">409600</param>
+		        </result>
+		</action>				
+		
+		<action name="adGoodsWrite" class="admin.adGoodsWrite">
+			<result type="redirect-action">
+				<param name="actionName">adGoodsList</param>
+			</result>
+		</action>			
+		
+		<action name="login">
+			<result>/customer/member/login_failed.jsp</result>
+		</action>			
+		
+		<action name="login_process" class="member.login">
+			<result name="success" type="redirect-action">
+				<param name="actionName">main</param>
+			</result>
+			<result name="login">/customer/member/login_failed.jsp</result>
+		</action>		
+		
+		<action name="cateogyrWriteAction" class="category.categoryWriteAction">
+			<interceptor-ref name="params"/>
+			<result type="redirect-action">
+				<param name="actionName">adminmain</param>
+			</result>
+		</action>
+		
+		<action name="categoryModifyAction" class="category.categoryModifyAction">
+			<interceptor-ref name="params"/>
+			<result type="redirect-action">
+				<param name="actionName">adminmain</param>
+			</result>
+		</action>
+	
+	</package>
+
+</struts>

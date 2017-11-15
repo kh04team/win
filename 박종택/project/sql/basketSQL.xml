@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN'
+	'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="basket">
+
+	<typeAlias alias="basket" type="basket.basket_bin"/>
+
+	<resultMap id="basketRes" class="basket">
+		<result property="no" column="no" />
+		<result property="goods_name" column="goods_name" />
+		<result property="main_img_save" column="main_img_save" />		
+		<result property="goods_no" column="goods_no" />
+		<result property="goods_qty" column="goods_qty" />
+		<result property="goods_price" column="goods_price" />
+		<result property="status" column="status" />
+		<result property="id" column="id" />
+	</resultMap>	
+	
+	<resultMap id="basketSumRes" class="basket">
+		<result property="goods_price_sum" column="goods_price_sum" />
+	</resultMap>	
+	
+	<select id="selectBasketAll" resultMap="basketRes" parameterClass="string">
+		select a.*, (select goods_name from goods where goods_no = a.goods_no) as goods_name, (select main_img_save from goods where goods_no = a.goods_no) as main_img_save from basket a where id = #id# and status = 'y' order by no desc 
+	</select>	
+	
+	<select id="selectBasketPriceSum" resultMap="basketSumRes" parameterClass="basket">
+		select sum(goods_price) as goods_price_sum from basket where id = #id# and status = 'y'
+	</select>
+	
+	<insert id="insertBasket" parameterClass="basket">
+		INSERT INTO basket(no, goods_no, goods_qty, goods_price, status, id)
+		VALUES (basket_no_seq.NEXTVAL, #goods_no#, #goods_qty#, #goods_price#, 'y', #id#)
+	</insert>		
+	
+	<update id="deleteBasket" parameterClass="basket">
+			UPDATE basket SET status = 'n' WHERE no = #no#
+	</update>		
+	
+</sqlMap>
