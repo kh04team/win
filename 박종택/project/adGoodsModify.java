@@ -144,7 +144,7 @@ public class adGoodsModify extends ActionSupport {
 			paramClass.setMain_img_org(getUploadFileName());
 			paramClass.setMain_img_save(file_name + "." +file_ext);		
 			
-			System.out.println(file_name + "." +file_ext);
+			//System.out.println(file_name + "." +file_ext);
 			
 			sqlMapper.update("goods.updateFile1", paramClass);
 			

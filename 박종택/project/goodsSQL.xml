@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN'
+	'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="goods">
+	
+	<typeAlias alias="goods" type="admin.goods_bin"/>
+	<typeAlias alias="goodsUser" type="goods.goods_bin"/>
+	<typeAlias alias="category" type="category.category_bin"/>
+	
+	<resultMap id="goodsRes" class="goods">
+		<result property="goods_no" column="goods_no" />
+		<result property="category_no" column="category_no" />
+		<result property="category_name" column="category_name" />
+		<result property="goods_name" column="goods_name" />
+		<result property="goods_qty" column="goods_qty" />
+		<result property="goods_price" column="goods_price" />
+		<result property="goods_color" column="goods_color" />
+		<result property="main_img_org" column="main_img_org" />
+		<result property="main_img_save" column="main_img_save" />
+<!-- 		<result property="thumbs_img_org" column="thumbs_img_org" />
+		<result property="thumbs_img_save" column="thumbs_img_save" /> -->
+		<result property="detail_img_org" column="detail_img_org" />
+		<result property="detail_img_save" column="detail_img_save" />
+	</resultMap>	
+	
+	<resultMap id="goodsResUser" class="goodsUser">
+		<result property="goods_no" column="goods_no" />
+		<result property="category_no" column="category_no" />
+		<result property="category_name" column="category_name" />
+		<result property="goods_name" column="goods_name" />
+		<result property="goods_qty" column="goods_qty" />
+		<result property="goods_price" column="goods_price" />
+		<result property="goods_color" column="goods_color" />
+		<result property="main_img_org" column="main_img_org" />
+		<result property="main_img_save" column="main_img_save" />
+<!-- 		<result property="thumbs_img_org" column="thumbs_img_org" />
+		<result property="thumbs_img_save" column="thumbs_img_save" /> -->
+		<result property="detail_img_org" column="detail_img_org" />
+		<result property="detail_img_save" column="detail_img_save" />
+	</resultMap>		
+	
+	<resultMap id="cateRes" class="goodsUser">
+		<result property="category_no" column="category_no" />
+		<result property="category_name" column="category_name" />
+	</resultMap>		
+	
+	<resultMap id="cateResAddCnt" class="category">
+		<result property="category_no" column="category_no" />
+		<result property="category_name" column="category_name" />
+		<result property="cnt" column="cnt" />
+	</resultMap>		
+	
+
+	<select id="selectOne" resultMap="goodsRes" parameterClass="goods">
+		select a.*, (select category_name from category where category_no = a.category_no) AS category_name from goods a where goods_no = #goods_no#
+	</select>	
+	
+	<select id="selectOneUser" resultMap="goodsResUser" parameterClass="goodsUser">
+		select a.*, (select category_name from category where category_no = a.category_no) AS category_name from goods a where goods_no = #goods_no#
+	</select>		
+	
+	<select id="selectCategoryAll" resultMap="cateRes" parameterClass="category">
+		select * from category where status = 'y' ORDER BY category_no DESC
+	</select>
+
+	<select id="selectAllNoCate" resultMap="cateResAddCnt" parameterClass="category">	
+		select count(a.*) as cnt from category a where a.status = 'y' ORDER BY category_no DESC
+	</select>
+
+	<select id="selectCategoryAllAddCnt" resultMap="cateResAddCnt" parameterClass="category">	
+		select a.*, (select count(*) as cnt from goods where category_no = a.category_no and status = 'y') as cnt from category a where a.status = 'y' ORDER BY category_no DESC
+	</select>
+		
+	<select id="selectAll" resultMap="goodsRes" parameterClass="goods">
+		select a.*, (select category_name from category where category_no = a.category_no) AS category_name from goods a where a.status = 'y' ORDER BY goods_no DESC
+	</select>	
+	
+	<select id="selectAllCate" resultMap="goodsRes" parameterClass="goods">
+		select a.*, (select category_name from category where category_no = a.category_no) AS category_name from goods a where a.status = 'y' and a.category_no = #category_no# ORDER BY goods_no DESC
+	</select>		
+	
+	<insert id="insertGoods" parameterClass="goods">
+		INSERT INTO goods(goods_no, category_no, goods_name, goods_qty, goods_price, goods_color, main_img_org, main_img_save, detail_img_org, detail_img_save, status)
+		VALUES (goods_no_seq.NEXTVAL, #category_no#, #goods_name#, #goods_qty#, #goods_price#, #goods_color#, #main_img_org#, #main_img_save#, #detail_img_org#, #detail_img_save#, 'y')
+	</insert>	
+	
+	<select id="selectLastChoiceNo" resultClass="goods" parameterClass="int">
+		SELECT max(goods_no) as goods_no FROM goods where goods_no = #goods_no#
+	</select>		
+	
+	<select id="selectLastNo" resultClass="goods" parameterClass="int">
+		SELECT max(goods_no) as goods_no FROM goods
+	</select>	
+
+	<select id="selectSearch" resultMap="goodsRes" parameterClass="string">
+		 SELECT a.*, (select category_name from category where category_no = a.category_no) AS category_name from goods a
+		 WHERE goods_name like #searchKeyword# and a.status = 'y'
+		 ORDER BY goods_no DESC
+	</select>
+
+	<update id="updateFile" parameterClass="goods">
+			UPDATE goods SET main_img_org = #main_img_org#
+				,main_img_save = #main_img_save#, detail_img_org = #detail_img_org#
+				,detail_img_save = #detail_img_save#
+			WHERE goods_no = #goods_no#
+	</update>
+
+	<update id="updateFile1" parameterClass="goods">
+			UPDATE goods SET main_img_org = #main_img_org#
+				,main_img_save = #main_img_save#
+			WHERE goods_no = #goods_no#
+	</update>	
+	
+	<update id="updateFile2" parameterClass="goods">
+			UPDATE goods SET detail_img_org = #detail_img_org#
+				,detail_img_save = #detail_img_save#
+			WHERE goods_no = #goods_no#
+	</update>		
+	
+	<update id="updateGoods" parameterClass="goods">
+			UPDATE goods SET category_no = #category_no#
+				,goods_name = #goods_name#, goods_qty = #goods_qty#
+				,goods_price = #goods_price#, goods_color = #goods_color#
+			WHERE goods_no = #goods_no#
+	</update>	
+	
+	<update id="deleteGoods" parameterClass="int">
+			UPDATE goods SET status = 'n'
+			WHERE goods_no = #nowSelectedNum#
+	</update>		
+	
+</sqlMap>
