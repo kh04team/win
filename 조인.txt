@@ -1,2 +1,13 @@
 ﻿select * from goods join goods_order ON goods.goods_num = goods_order.order_goods_num join member on goods_order.order_member_id = member.member_id
 select * from goods, goods_order, member where goods.goods_num = goods_order.order_goods_num and member.member_id = goods_order.order_member_id
+
+상품테이블에서 가져올값들은
+
+
+상품이름, 상품가격 , 상품 색깔 
+
+그리고
+
+우편주소 , 상세주소1 ,2 ,배송 메모 . 결제방법도 입력 받고
+
+

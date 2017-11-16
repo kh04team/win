@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -81,68 +82,46 @@
             <div class="container">
 
                 <div class="row">
-                    <div class="col-md-12">
-                        <p class="text-muted lead">You currently have 3 item(s) in your cart.</p>
-                    </div>
+                   
 
 
                     <div class="col-md-9 clearfix" id="basket">
 
                         <div class="box">
 
-                            <form method="post" action="shop-checkout1.html">
+                            <form name="paypay" id="paypay" method="post" action="shop-checkout1.html">
 
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th colspan="2">Product</th>
-                                                <th>Quantity</th>
-                                                <th>Unit price</th>
-                                                <th>Discount</th>
-                                                <th colspan="2">Total</th>
+                                                <th colspan="2">상품</th>
+                                                <th>상품명</th>
+                                                <th>상품색상</th>
+                                                <th>주문수량</th>
+                                                                                               
+                                             
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
+                                          
                                                 <td>
-                                                    <a href="#">
-                                                        <img src="img/detailsquare.jpg" alt="White Blouse Armani">
-                                                    </a>
+                                                    <img src='<s:property value="resultClass.main_img_save"/>' >
                                                 </td>
-                                                <td><a href="#">White Blouse Armani</a>
-                                                </td>
+                                                <td><s:property value="resultClass.goods_name"/></td>
+                                                <td><s:property value="goods_color"/></td>
                                                 <td>
-                                                    <input type="number" value="2" class="form-control">
+                                                    <input type="number" value='<s:property value="goods_qty"/>' class="form-control" readonly="readonly">
                                                 </td>
-                                                <td>$123.00</td>
-                                                <td>$0.00</td>
-                                                <td>$246.00</td>
-                                                <td><a href="#"><i class="fa fa-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <img src="img/basketsquare.jpg" alt="Black Blouse Armani">
-                                                    </a>
-                                                </td>
-                                                <td><a href="#">Black Blouse Armani</a>
-                                                </td>
-                                                <td>
-                                                    <input type="number" value="1" class="form-control">
-                                                </td>
-                                                <td>$200.00</td>
-                                                <td>$0.00</td>
-                                                <td>$200.00</td>
-                                                <td><a href="#"><i class="fa fa-trash-o"></i></a>
-                                                </td>
-                                            </tr>
+                                                
+                                              
+                                          
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th colspan="5">Total</th>
-                                                <th colspan="2">$446.00</th>
+                                                <th colspan="5">결제금액</th>
+                                                <th colspan="2"><s:property value="resultClass.total_price"/></th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -153,10 +132,10 @@
                         </div>                       
 						<br/><br/><br/>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                       <input readonly type="text" id="sample4_postcode" placeholder="우편번호" >
+                       <input readonly type="text" id="sample4_postcode" name="sample4_postcode" placeholder="우편번호" >
 						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" ><br>
-						<input type="text" id="sample4_roadAddress" placeholder="주소" readonly style="width:400px;margin-top:5px;"><br/>
-						<input type="text" id="sample4_jibunAddress" placeholder="상세주소" style="width:250px;margin-top:5px;">
+						<input type="text" id="sample4_roadAddress" name="sample4_roadAddress" placeholder="주소" readonly style="width:400px;margin-top:5px;"><br/>
+						<input type="text" id="sample4_jibunAddress" name="sample4_jibunAddress" placeholder="상세주소" style="width:250px;margin-top:5px;">
 						<span id="guide" style="color:#999"></span>
 						</div>
 						</div>
@@ -167,12 +146,10 @@
 							
 
                                 <div class="box-footer">
-                                    <div class="pull-left">
-                                        <a href="shop-category.html" class="btn btn-default"><i class="fa fa-chevron-left"></i> Continue shopping</a>
-                                    </div>
+                                    
                                     <div class="pull-right">
-                                        <button class="btn btn-default"><i class="fa fa-refresh"></i> Update cart</button>
-                                        <button type="submit" class="btn btn-template-main">Proceed to checkout <i class="fa fa-chevron-right"></i>
+                                        <a href="/icase/goods/goodsList.action" class="btn btn-default"> 주문취소</a>
+                                        <button type="submit" id="pay" name="pay" class="btn btn-template-main">결제하기 <i class="fa fa-chevron-right"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -186,36 +163,7 @@
                     </div>
                     <!-- /.col-md-9 -->
 
-                    <div class="col-md-3">
-                        <div class="box" id="order-summary">
-                            <div class="box-header">
-                                <h3>Order summary</h3>
-                            </div>
-                            <p class="text-muted">Shipping and additional costs are calculated based on the values you have entered.</p>
-
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td>Order subtotal</td>
-                                            <th>$446.00</th>
-                                        </tr>
-                                        <tr>
-                                            <td>Shipping and handling</td>
-                                            <th>$10.00</th>
-                                        </tr>
-                                        <tr>
-                                            <td>Tax</td>
-                                            <th>$0.00</th>
-                                        </tr>
-                                        <tr class="total">
-                                            <td>Total</td>
-                                            <th>$456.00</th>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
+                 
                         </div>
 
 

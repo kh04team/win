@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN'
+	'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="adOrderView">
+	
+	<typeAlias alias="adOrderView" type="admin.adorderlistVO"/>
+	
+	<resultMap id="adOrderViewRes" class="adOrderView">
+		
+		<result property="no" column="no"/>
+        <result property="goods_name" column="goods_name" />
+        <result property="goods_color" column="goods_color" />
+		<result property="mem_name" column="mem_name" />
+	    <result property="order_qty" column="order_qty" />
+	    <result property="order_price" column="order_price" />
+	    <result property="order_memo" column="order_memo" />
+	    <result property="zip_code" column="zip_code"/>
+	    <result property="address1" column="address1"/>
+	    <result property="address2" column="address2"/>
+	    <result property="order_status" column="order_status" />
+	    <result property="status" column="status" />
+	    
+	    
+	</resultMap>
+	
+	
+    <select id="selectOne" resultMap="adOrderViewRes" parameterClass="int">
+			select * from orders where no = #no# ORDER BY order_no DESC
+			
+    </select>
+    
+    <update id="updateorder" parameterClass="adOrderView">
+    		UPDATE orders SET GOODS_COLOR = #goods_color#,
+                     		     MEM_NAME = #mem_name#,
+                       		     ORDER_MEMO = #order_memo#,
+                       		     ZIP_CODE = #zip_code#,
+                       		     ADDRESS1 = #address1#,
+                       		     ADDRESS2 = #address2#,
+                       		     ORDER_STATUS = #order_status#,
+                       		     STATUS = #status#
+                       		     where no = #no#
+		  
+   		</update>
+   		
+   		
+    
+    
+   		
+	
+	
+	
+	
+</sqlMap>

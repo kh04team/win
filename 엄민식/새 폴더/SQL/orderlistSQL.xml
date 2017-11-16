@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN'
+	'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="orderlist">
+	
+	<typeAlias alias="orderlist" type="user.orderlistVO"/>
+	
+	<resultMap id="orderlistRes" class="orderlist">
+		
+        <result property="no" column="no" />
+        <result property="order_no" column="order_no" />
+		<result property="goods_name" column="goods_name" />
+		<result property="order_qty" column="order_qty" />
+		<result property="order_price" column="order_price" />
+		<result property="order_status" column="order_status" />
+		
+	 
+	</resultMap>	
+	
+	
+	<select id="selectAll" resultMap="orderlistRes" parameterClass="orderlist">
+		select * from orders where status = 'y' ORDER BY order_no DESC
+	</select>
+	
+</sqlMap>

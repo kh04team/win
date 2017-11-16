@@ -1,0 +1,63 @@
+Ω∫∆Æ∑µ√˜
+
+ <action name="orderlist" class="user.orderlistAction">
+	     <result name="success" type="tiles">
+	     orderlist
+	     </result>
+	    </action>
+
+<action name="orderlistview"  class="user.orderListViewAction">
+	      <result name="success" type="tiles">
+	       orderlistview
+	      </result> 
+	    </action>
+
+
+<action name="adOrderList" class="admin.adorderlistAction">
+	     <result name="success" type="tiles">
+	     adOrderList
+	     </result>
+	    </action>
+
+  <action name="adOrderView" class="admin.adOrderViewAction">
+	     <result name="success" type="tiles">
+	     adOrderView
+	     </result>
+	    </action>
+
+ <action name="adOrdermodify" class="admin.adOrdermodifyAction">
+	     <interceptor-ref name="params"/>
+	     <result name="success" type="redirect">adOrderView.action?no=${no}</result>
+	    </action>
+
+
+≈∏¿œ¡Ó
+
+
+<definition name="orderlist" template="/customer/main.jsp" > 
+   <put-attribute name="header" value="/customer/header.jsp" />
+   <put-attribute name="footer" value="/customer/footer.jsp" />
+   <put-attribute name="body" value="/customer/order/orderlist.jsp" />    
+  </definition>
+
+ <definition name="orderlistview" template="/customer/main.jsp" > 
+   <put-attribute name="header" value="/customer/header.jsp" />
+   <put-attribute name="footer" value="/customer/footer.jsp" />
+   <put-attribute name="body" value="/customer/order/orderlistview.jsp" />    
+  </definition>
+  
+
+<definition name="adOrderList" template="/admin/adminmain.jsp" > 
+   <put-attribute name="header" value="/admin/adminheader.jsp" />
+   <put-attribute name="leftmenu" value="/admin/leftmenu.jsp" />
+   <put-attribute name="top" value="/admin/topnavi.jsp" />
+   <put-attribute name="body" value="/admin/production/adOrderList.jsp" />    
+  </definition>
+
+<definition name="adOrderView" template="/customer/main.jsp" > 
+   <put-attribute name="header" value="/customer/header.jsp" />
+   <put-attribute name="footer" value="/customer/footer.jsp" />
+   <put-attribute name="body" value="/admin/production/adOrderView.jsp" />    
+  </definition>
+
+ 
