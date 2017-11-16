@@ -28,8 +28,8 @@
                     <!-- *** LEFT COLUMN ***
 			 _________________________________________________________ -->
 
-                    <div class="col-md-9 clearfix">
-                        <section>
+                    <div class="clearfix"></div>
+                      
 
                             <p class="lead">아이케이스 FAQ 게시판 입니다.</p>
 
@@ -164,10 +164,10 @@
 
                             </div>
                             <!-- /.panel-group -->
-
+</section>
  
 
 
     <!-- #### JAVASCRIPT FILES ### -->
 
- </section>
+ 
