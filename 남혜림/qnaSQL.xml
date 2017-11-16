@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN'
+	'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="qna">
+
+	<typeAlias alias="qna" type="cms.qnaVO"/>
+	
+	<resultMap id="qnaRes" class="qna">
+	
+<!-- 	private int no;
+	private String id;
+	private String subject;
+	private String content;
+	private Date regdate;
+	private String com;
+	private String id_admin;
+	private Date com_reg_date;
+	private String status; -->
+	
+	<result property="no" column="no"/>
+	<result property="id" column="id"/>
+	<result property="subject" column="subject"/>
+	<result property="content" column="content"/>
+	<result property="reg_date" column="reg_date"/>
+	<result property="com" column="com"/>
+	<result property="id_admin" column="id_admin"/>
+	<result property="com_reg_date" column="com_reg_date"/>
+	<result property="status" column="status"/>
+	</resultMap>
+	
+	<select id="adselectAll" resultMap="qnaRes" parameterClass="int">
+	select * from QNA_BOARD ORDER BY no DESC
+	</select>
+	
+	<select id="selectAll" resultMap="qnaRes" parameterClass="int">
+	select * from QNA_BOARD where status='y' ORDER BY no DESC 
+	</select> 
+
+	<select id="selectOne" resultMap="qnaRes" parameterClass="int">
+	select * from QNA_BOARD WHERE no = #no#
+	</select>
+	
+<insert id="insertQna" parameterClass="qna">
+	INSERT INTO qna_board(NO, ID, SUBJECT, CONTENT, REG_DATE,STATUS)
+	VALUES(qna_board_no_seq.nextval,#id#,#subject#,#content#,#reg_date#,'y')
+</insert>
+
+	
+	<update id="updateQna" parameterClass="qna">
+	update QNA_BOARD SET 	SUBJECT=#subject#,
+	 						CONTENT=#content#
+	 						WHERE no = #no# 
+	</update>
+	
+	<update id="deleteQna" parameterClass="qna">
+		update QNA_BOARD set status='n' where no=#no#
+	</update>   
+	
+	<!-- 댓글  -->
+	<select id="listCom" resultMap="qnaRes" parameterClass="int">
+		select * from qna_board where no = #no# order by com_reg_date DESC 
+	</select>
+	
+	<update id="updateCom" parameterClass="qna">
+	update QNA_BOARD SET 	id_admin=#id_admin#,
+							com=#com#,
+	 						com_reg_date=#com_reg_date#
+	 						WHERE no = #no# 
+	</update> 
+	
+		<update id="deleteComment" parameterClass="qna">
+		update from qna_board set status='n' where no=#no#
+	</update>  
+
+</sqlMap>

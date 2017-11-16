@@ -1,0 +1,18 @@
+
+파일 설명
+JSP
+경로 : webContent - customer - cms
+- 고객용 공지사항, qna, faq 
+* footer에 고객용 스크립트 저장되어 있음
+
+경로 : webContent - admin - production (css, images, js는 공통파일임)
+- 관리자용 공지사항, qna, faq 
+* adminmain에 관리자용 스크립트 저장되어 있음
+
+class
+경로 : src - cms 
+- 고객용 액션 처리 클래스, 자바빈, 페이징
+ 
+경로 : src - event
+- 관리자용 액션 처리 클래스
+
