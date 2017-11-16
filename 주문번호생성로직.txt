@@ -1,0 +1,13 @@
+		paramClass2 = new basket_bin();
+		paramClass2.setId((String)ActionContext.getContext().getSession().get("id"));
+		sqlMapper.update("basket.updateBasketStatus", paramClass2);
+
+		SimpleDateFormat formatter = new SimpleDateFormat ( "yyyyMMddHHmmss", Locale.KOREA ); 
+		Date currentTime = new Date(); 
+		String dTime = formatter.format ( currentTime ); 
+		sqlMapper.insert("basket.insertOrderNo", 1);
+		
+		resultClass = (order_bin) sqlMapper.queryForObject("basket.selectOrderNoMax", 1);
+		int order_key = resultClass.getNo();
+		String order_key_set = String.valueOf(order_key);		
+		String order_number = dTime + order_key_set;
