@@ -1,0 +1,199 @@
+
+ <!DOCTYPE tiles-definitions PUBLIC
+  "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" 
+  "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+  
+ <tiles-definitions>
+  
+  <definition name="main_body" template="/customer/main.jsp"> 
+   <put-attribute name="header" value="/customer/header.jsp" />
+   <put-attribute name="body" value="/customer/body.jsp" /> 
+   <put-attribute name="footer" value="/customer/footer.jsp" />
+  </definition>
+  
+<!--   <definition name="goods_list" template="/customer/main.jsp"> 
+   <put-attribute name="header" value="/customer/header.jsp" />
+   <put-attribute name="body" value="/customer/shop-category-full.jsp" /> 
+   <put-attribute name="footer" value="/customer/footer.jsp" />
+  </definition>
+  
+  <definition name="shop_detail_list" template="/customer/main.jsp"> 
+   <put-attribute name="header" value="/customer/header.jsp" />
+   <put-attribute name="body" value="/customer/shop-detail.jsp" /> 
+   <put-attribute name="footer" value="/customer/footer.jsp" />
+  </definition>  
+
+  <definition name="admin_main" template="/admin/production/adminmain.jsp" > 
+   <put-attribute name="header" value="/admin/production/adminheader.jsp" />
+   <put-attribute name="leftmenu" value="/admin/production/leftmenu.jsp" />
+   <put-attribute name="top" value="/admin/production/topnavi.jsp" />
+   <put-attribute name="body" value="/admin/production/category_content.jsp" />    
+  </definition>
+
+  <definition name="admin_goods" template="/admin/production/adminmain.jsp" > 
+   <put-attribute name="header" value="/admin/production/adminheader.jsp" />
+   <put-attribute name="leftmenu" value="/admin/production/leftmenu.jsp" />
+   <put-attribute name="top" value="/admin/production/topnavi.jsp" />
+   <put-attribute name="body" value="/admin/production/adGoodsList.jsp" />    
+  </definition>
+  
+  <definition name="admin_goods_write" template="/admin/production/adminmain.jsp" > 
+   <put-attribute name="header" value="/admin/production/adminheader.jsp" />
+   <put-attribute name="leftmenu" value="/admin/production/leftmenu.jsp" />
+   <put-attribute name="top" value="/admin/production/topnavi.jsp" />
+   <put-attribute name="body" value="/admin/production/adGoodsWrite.jsp" />    
+  </definition>   -->
+  
+  <!-- faq 게시판 -->
+  <definition name="faq_main" template="/customer/main.jsp" > 
+   <put-attribute name="header" value="/customer/header.jsp" />
+   <put-attribute name="footer" value="/customer/footer.jsp" />
+   <put-attribute name="body" value="/customer/cms/faq.jsp" />    
+  </definition>   
+	
+	<!-- 공지사항 리스트 관리자용 -->
+	<definition name="ad_notice_list" template="/admin/production/adminmain.jsp" > 
+   <put-attribute name="header" value="/admin/production/adminheader.jsp" />
+   <put-attribute name="leftmenu" value="/admin/production/leftmenu.jsp" />
+   <put-attribute name="top" value="/admin/production/topnavi.jsp" />
+   <put-attribute name="body" value="/admin/production/adNoticeList.jsp" />    
+  </definition> 
+      
+    <!-- 공지사항 리스트 고객용 -->
+   <definition name="cms_notice_list" template="/customer/main.jsp" > 
+   <put-attribute name="header" value="/customer/header.jsp" />
+   <put-attribute name="footer" value="/customer/footer.jsp" />
+   <put-attribute name="body" value="/customer/cms/cmsNoticeList.jsp" />    
+  </definition>
+  
+  <!-- 공지사항 상세보기 관리자용 -->
+	<definition name="ad_notice_view" template="/admin/production/adminmain.jsp" > 
+   <put-attribute name="header" value="/admin/production/adminheader.jsp" />
+   <put-attribute name="leftmenu" value="/admin/production/leftmenu.jsp" />
+   <put-attribute name="top" value="/admin/production/topnavi.jsp" />
+   <put-attribute name="body" value="/admin/production/adNoticeView.jsp" />    
+  </definition> 
+  
+  <!-- 공지사항 상세보기 고객용 -->
+   <definition name="cms_notice_view" template="/customer/main.jsp" > 
+   <put-attribute name="header" value="/customer/header.jsp" />
+   <put-attribute name="footer" value="/customer/footer.jsp" />
+   <put-attribute name="body" value="/customer/cms/cmsNoticeView.jsp" />    
+  </definition>
+  
+  <!-- 공지사항 수정  처리 -->
+   <definition name="ad_notice_modify" template="/admin/production/adminmain.jsp" > 
+   <put-attribute name="header" value="/admin/production/adminheader.jsp" />
+   <put-attribute name="leftmenu" value="/admin/production/leftmenu.jsp" />
+   <put-attribute name="top" value="/admin/production/topnavi.jsp" />
+   <put-attribute name="body" value="/admin/production/adNoticeModifyForm.jsp" />    
+  </definition> 
+  
+  <!-- 공지사항 수정 폼  -->
+   <definition name="ad_notice_modifyform" template="/admin/production/adminmain.jsp" > 
+   <put-attribute name="header" value="/admin/production/adminheader.jsp" />
+   <put-attribute name="leftmenu" value="/admin/production/leftmenu.jsp" />
+   <put-attribute name="top" value="/admin/production/topnavi.jsp" />
+   <put-attribute name="body" value="/admin/production/adNoticeModifyForm.jsp" />    
+  </definition> 
+  
+  <!-- 공지사항 글쓰기 처리-->
+   <definition name="ad_notice_write" template="/admin/production/adminmain.jsp" > 
+   <put-attribute name="header" value="/admin/production/adminheader.jsp" />
+   <put-attribute name="leftmenu" value="/admin/production/leftmenu.jsp" />
+   <put-attribute name="top" value="/admin/production/topnavi.jsp" />
+   <put-attribute name="body" value="/admin/production/adNoticeWriteForm.jsp" />    
+  </definition> 
+  
+  <!-- 공지사항 글 쓰기 폼  -->
+   <definition name="ad_notice_writeform" template="/admin/production/adminmain.jsp" > 
+   <put-attribute name="header" value="/admin/production/adminheader.jsp" />
+   <put-attribute name="leftmenu" value="/admin/production/leftmenu.jsp" />
+   <put-attribute name="top" value="/admin/production/topnavi.jsp" />
+   <put-attribute name="body" value="/admin/production/adNoticeWriteForm.jsp" />    
+  </definition> 
+  
+  
+  <!-- qna -->
+  <!-- 관리자용 qna 리스트 -->
+    <definition name="ad_qna_list" template="/admin/production/adminmain.jsp" > 
+   <put-attribute name="header" value="/admin/production/adminheader.jsp" />
+   <put-attribute name="leftmenu" value="/admin/production/leftmenu.jsp" />
+   <put-attribute name="top" value="/admin/production/topnavi.jsp" />
+   <put-attribute name="body" value="/admin/production/adQnaList.jsp" />    
+  </definition> 
+  
+  <!-- 고객용 qna 리스트 -->
+     <definition name="cms_qna_list" template="/customer/main.jsp" > 
+   <put-attribute name="header" value="/customer/header.jsp" />
+   <put-attribute name="footer" value="/customer/footer.jsp" />
+   <put-attribute name="body" value="/customer/cms/cmsQnaList.jsp" />    
+  </definition> 
+  
+    <!-- 관리자용 qna 상세보기 -->
+    <definition name="ad_qna_view" template="/admin/production/adminmain.jsp" > 
+   <put-attribute name="header" value="/admin/production/adminheader.jsp" />
+   <put-attribute name="leftmenu" value="/admin/production/leftmenu.jsp" />
+   <put-attribute name="top" value="/admin/production/topnavi.jsp" />
+   <put-attribute name="body" value="/admin/production/adQnaView.jsp" />    
+  </definition> 
+  
+    <!-- 고객용 qna 상세보기 -->
+    <definition name="cms_qna_view" template="/customer/main.jsp" > 
+   <put-attribute name="header" value="/customer/header.jsp" />
+   <put-attribute name="footer" value="/customer/footer.jsp" />
+   <put-attribute name="body" value="/customer/cms/cmsQnaView.jsp" />    
+  </definition>
+  
+  <!-- 고객용 qna 수정 처리 -->
+   <definition name="cms_qna_modify" template="/customer/main.jsp" > 
+   <put-attribute name="header" value="/customer/header.jsp" />
+   <put-attribute name="footer" value="/customer/footer.jsp" />
+   <put-attribute name="body" value="/customer/cms/cmsQnaModify.jsp" />    
+  </definition>
+  
+  <!-- 고객용 qna 수정 폼 처리 -->
+    <definition name="cms_qna_modifyform" template="/customer/main.jsp" > 
+   <put-attribute name="header" value="/customer/header.jsp" />
+   <put-attribute name="footer" value="/customer/footer.jsp" />
+   <put-attribute name="body" value="/customer/cms/cmsQnaModify.jsp" />    
+  </definition>
+  
+  <!-- 고객용 qna 글 쓰기 처리 -->
+  <definition name="cms_qna_write" template="/customer/main.jsp" > 
+   <put-attribute name="header" value="/customer/header.jsp" />
+   <put-attribute name="footer" value="/customer/footer.jsp" />
+   <put-attribute name="body" value="/customer/cms/cmsQnaWriteForm.jsp" />    
+  </definition> 
+  
+  <!-- 고객용 qna 글 쓰기 폼 처리 -->
+   <definition name="cms_qna_writeform" template="/customer/main.jsp" > 
+   <put-attribute name="header" value="/customer/header.jsp" />
+   <put-attribute name="footer" value="/customer/footer.jsp" />
+   <put-attribute name="body" value="/customer/cms/cmsQnaWriteForm.jsp" />    
+  </definition> 
+  
+   </tiles-definitions>
+  
+<!--    <definition name="user_main" template="/customer/main.jsp" > 
+   <put-attribute name="header" value="/customer/header.jsp" />
+   <put-attribute name="footer" value="/customer/footer.jsp" />
+   <put-attribute name="body" value="/customer/user/memberModifyForm.jsp" />    
+  </definition>  -->
+  
+
+
+
+<!-- 
+  <!DOCTYPE tiles-definitions PUBLIC
+   "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" 
+   "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+   
+  <tiles-definitions>
+   <definition name="helloworld.action" template="/layout.jsp"> 
+    <put-attribute name="header" value="/shop/header.jsp" />
+    <put-attribute name="body" value="/shop/body.jsp" /> 
+    <put-attribute name="footer" value="/shop/footer.jsp" />
+   </definition>
+  </tiles-definitions>
+-->

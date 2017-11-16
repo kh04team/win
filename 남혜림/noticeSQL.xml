@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN'
+	'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="notice">
+
+	<typeAlias alias="notice" type="cms.noticeVO"/>
+	
+	<resultMap id="noticeRes" class="notice">
+	<!-- 리절트 맵 정의 -->
+	
+	<!-- private int no;
+	private String id_admin;
+	private String subject;
+	private String content;
+	private Date regdate;
+	private String status; -->
+		<result property="no" column="no"/>
+		<result property="id_admin" column="id_admin"/>
+		<result property="subject" column="subject"/>
+		<result property="content" column="content"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="status" column="status"/>
+	</resultMap>
+	<!-- 자바빈 설정 완료 -->
+	
+	<select id="adselectAll" resultMap="noticeRes" parameterClass="notice">
+	select * from NOTICE ORDER BY no DESC
+	</select> 
+	
+	<select id="selectAll" resultMap="noticeRes" parameterClass="notice">
+	select * from NOTICE where status='y' ORDER BY no DESC 
+	</select> 
+	
+	<select id="selectOne" resultMap="noticeRes" parameterClass="notice">
+							<!-- 컬럼과 vo 변수 매치 할 때 사용. select 문에서만 사용   -->
+		select * from NOTICE WHERE no = #no#
+	</select>
+	
+	<insert id="insertNotice" parameterClass="notice">
+		insert into NOTICE (NO, ID_ADMIN, SUBJECT, CONTENT, REG_DATE, STATUS)
+		VALUES(NOTICE_NO_SEQ.NEXTVAL, #id_admin#, #subject#, #content#, #reg_date#, 'y') 
+	</insert>  
+	
+ 	<update id="updateNotice"  parameterClass="notice">
+		update NOTICE SET 	ID_ADMIN=#id_admin#,
+							SUBJECT=#subject#, 
+							CONTENT=#content#
+							WHERE no = #no#
+	</update> 
+	
+	<update id="deleteNotice" parameterClass="notice">
+		update NOTICE set status='n' where no=#no#
+	</update>   
+</sqlMap>

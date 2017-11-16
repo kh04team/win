@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">      
+    
+<!-- 용량제한 100MB로 설정 -->
+<struts>
+<constant name="struts.multipart.maxSize" value="104857600" />
+
+	<package name="icase" extends="struts-default">
+		<!-- 글로벌 예외 처리 화면 설정 -->
+		
+	    <result-types>
+	     <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+	    </result-types>
+
+	    <action name="faq_main">
+	     <result name="success" type="tiles">
+	      faq_main
+	     </result>
+	    </action>
+	
+		<!-- 공지사항 관리자용 리스트 액션 -->
+		   <action name="adnotice_list" class="event.adNoticeList">
+	     <result name="success" type="tiles">
+	      ad_notice_list
+	     </result>
+	    </action>
+	    
+	    <!-- 공지사항 고객용 리스트 액션 -->    
+	   	<action name="notice_list" class="cms.cmsNoticeList">
+	     <result name="success" type="tiles">
+	      cms_notice_list
+	     </result>
+	    </action>
+
+		<!-- 공지사항 관리자용 상세보기 액션 -->
+		   <action name="adnotice_view" class="event.adNoticeView">
+	     <result name="success" type="tiles">
+	      ad_notice_view
+	     </result>
+	    </action>
+	    
+	   	<!-- 공지사항 고객용 상세보기 액션 -->
+	   	<action name="notice_view" class="cms.cmsNoticeView">
+	     <result name="success" type="tiles">
+	      cms_notice_view
+	     </result>
+	    </action>
+		
+		<!-- 공지사항 쓰기 처리 액션 -->
+  	   	<action name="adnotice_write" class="event.adNoticeWrite">
+        <result type="redirect-action">
+		<param name="actionName">notice_list</param>
+		</result>
+	    </action> 
+	    <!-- 공지사항 쓰기 폼 액션 -->	    
+	   	<action name="adnotice_writeform" class="event.adNoticeWriteForm">
+	     <result name="success" type="tiles">
+	      ad_notice_writeform
+	     </result>
+	    </action>
+	   	<!-- 공지사항 수정 처리 액션 -->   
+  	   	<action name="notice_modify" class="event.adNoticeModify">
+	        <result type="redirect-action">
+				<param name="actionName">adnotice_list</param>
+			</result>
+	    </action> 
+		<!-- 공지사항 수정 처리 폼 액션 -->
+	   	<action name="adnotice_modifyform" class="event.adNoticeModifyForm">
+		 <result name="success" type="tiles">
+	      ad_notice_modifyform
+	     </result>
+	    </action>
+	    
+	    <!-- 공지사항 삭제 처리 액션. 게시글 노출 여부 : y -> n 으로 변경 -->
+	   	<action name="adnotice_delete" class="event.adNoticeDelete">
+			<result type="redirect-action">
+				<param name="actionName">adnotice_list</param>
+			</result>
+	    </action>
+	     
+	     <!-- qna -->
+	     
+	     <!-- qna 관리자용 리스트 액션 -->
+	     <action name="adqna_list" class="event.adQnaList">
+	     <result name="success" type="tiles">
+	      ad_qna_list
+	     </result>
+	    </action>
+	     
+	     <!-- qna 고객용  리스트 액션 -->
+	   	<action name="qna_list" class="cms.cmsQnaList">
+	     <result name="success" type="tiles">
+	      cms_qna_list
+	     </result>
+	    </action>
+	    
+	   	<!-- qna 관리자용 상세보기  액션-->
+	   	<action name="adqna_view" class="cms.cmsQnaView">
+	     <result name="success" type="tiles">
+	      ad_qna_view
+	     </result>
+	    </action>
+	    
+	    <!-- qna 고객용 상세보기  액션-->
+	   	<action name="qna_view" class="cms.cmsQnaView">
+	     <result name="success" type="tiles">
+	      cms_qna_view
+	     </result>
+	    </action>
+	    <!-- qna 글쓰기 처리 액션 -->
+	   	<action name="qna_write" class="cms.cmsQnaWrite">
+			<result name="success" type="redirect-action">
+				<param name="actionName">qna_list</param>
+			</result>
+	    </action>
+	    
+	    <!-- qna 글쓰기 폼 액션 -->
+	    <action name="qna_writeform" class="cms.cmsQnaWriteForm">
+	     <result name="success" type="tiles">
+	      cms_qna_writeform
+	     </result>
+	    </action>
+	    
+	    <!-- qna 글 수정 처리 액션 -->
+	   	<action name="qna_modify" class="cms.cmsQnaModify">
+			<result type="redirect-action">
+				<param name="actionName">qna_list</param>
+			</result>
+	    </action>
+	    <!-- qna 글 수정 폼 액션 -->
+	    <action name="qna_modifyform" class="cms.cmsQnaModifyForm">
+	     <result name="success" type="tiles">
+	      cms_qna_modifyform
+	     </result>
+	    </action>
+
+	    <!-- qna 고객용 글 삭제 액션 -->
+	    <action name="adqna_delete" class="cms.cmsQnaDelete">
+			<result type="redirect-action">
+				<param name="actionName">adqna_list</param>
+			</result>
+	    </action>
+	    
+	    <!-- qna 고객용 글 삭제 액션 -->
+	    <action name="qna_delete" class="cms.cmsQnaDelete">
+			<result type="redirect-action">
+				<param name="actionName">qna_list</param>
+			</result>
+	    </action>
+	    
+	    <!-- 관리자용 코맨트 액션 -->
+	    	<action name="qna_comment" class="cms.cmsQnaComment">
+			<interceptor-ref name="params" />
+			<result name="success" type="redirect">adqna_view.action?no=${no}</result>
+	    </action>
+	    
+
+
+<!-- 	    <action name="mem_main">
+	     <result name="success" type="tiles">
+	      user_main
+	     </result>
+	    </action>
+	
+	    <action name="main">
+	     <result name="success" type="tiles">
+	      main_body
+	     </result>
+	    </action>
+	
+	    <action name="goodslist">
+	     <result name="success" type="tiles">
+	      goods_list
+	     </result>
+	    </action>
+	    
+	    <action name="shopdetail">
+	     <result name="success" type="tiles">
+	      shop_detail_list
+	     </result>
+	    </action>    
+	    
+	    <action name="adminmain" class="category.categoryListAction">
+	     <result name="success" type="tiles">
+	      admin_main
+	     </result>
+	    </action>   
+	
+	    <action name="adGoodsList" class="admin.adGoodsList">
+	     <result name="success" type="tiles">
+	      admin_goods
+	     </result>
+	    </action>   
+
+	    <action name="adGoodsWriteForm" class="admin.adGoodsWriteForm">
+	     <result name="success" type="tiles">
+	      admin_goods_write
+	     </result>
+	    </action>   
+		
+		<action name="adGoodsWrite" class="admin.adGoodsWrite">
+			<interceptor-ref name="params"/>
+			<result type="redirect-action">
+				<param name="actionName">adGoodsList</param>
+			</result>
+		</action>		
+		
+		<action name="cateogyrWriteAction" class="category.categoryWriteAction">
+			<interceptor-ref name="params"/>
+			<result type="redirect-action">
+				<param name="actionName">adminmain</param>
+			</result>
+		</action>
+		
+		<action name="categoryModifyAction" class="category.categoryModifyAction">
+			<interceptor-ref name="params"/>
+			<result type="redirect-action">
+				<param name="actionName">adminmain</param>
+			</result>
+		</action> -->
+	
+	</package>
+
+</struts>
