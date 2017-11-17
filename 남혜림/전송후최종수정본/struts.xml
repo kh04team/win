@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">      
+    
+<!-- 용량제한 100MB로 설정 -->
+<struts>
+<constant name="struts.multipart.maxSize" value="104857600" />
+<!-- <constant name="struts.multipart.saveDir" value="D:\\source\\java\\upload\\" /> -->
+
+	<package name="icase" extends="struts-default">
+		<!-- 글로벌 예외 처리 화면 설정 -->
+		
+	    <result-types>
+	     <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+	    </result-types>
+	<!-- JT.goods/category -->
+	    <action name="main">
+	     <result name="success" type="tiles">
+	      main_body
+	     </result>
+	    </action>
+	
+	    <action name="goodslist" class="goods.goodsList">
+	     <result name="success" type="tiles">
+	      goods_list
+	     </result>
+	    </action>
+	    
+	    <action name="shopdetail" class="goods.goodsView">
+	     <result name="success" type="tiles">
+	      shop_detail_list
+	     </result>
+	    </action>    
+<!-- 11.14 hr -->
+	    <action name="adCategory" class="category.categoryListAction">
+	     <result name="success" type="tiles">
+	      admin_category
+	     </result>
+	    </action>
+	    
+	    <action name="adMain">
+	     <result type="tiles">
+	      admin_main
+	     </result>
+	    </action>
+<!-- /11.14 hr -->	
+	    <action name="adGoodsList" class="admin.adGoodsList">
+	     <result name="success" type="tiles">
+	      admin_goods
+	     </result>
+	    </action>   
+
+	    <action name="product_list_del" class="admin.product_list_del">
+    		<interceptor-ref name = "params"/>    		
+    		<result name="success">/admin/production/ajax_result.jsp</result>	    
+	    </action>
+
+	    <action name="adGoodsWriteForm" class="admin.adGoodsWriteForm">
+	     <result name="success" type="tiles">
+	      admin_goods_write
+	     </result>
+	    </action>   
+	    
+	    <action name="adGoodsModifyForm" class="admin.adGoodsModifyForm">
+	     <result name="success" type="tiles">
+	      admin_goods_modify
+	     </result>
+	    </action> 		
+
+		<!-- 게시판 파일 다운로드 액션 -->
+		<action name="fileDownloadAction" class="admin.adGoodsModifyForm" method="download">
+			<result name="success" type="stream">
+		               <param name="contentType">binary/octet-stream</param>
+		               <param name="inputName">inputStream</param>
+		               <param name="contentDisposition">${contentDisposition}</param>
+		               <param name="contentLength">${contentLength}</param> 
+		               <param name="bufferSize">409600</param>
+		        </result>
+		</action>
+				
+		<!-- 게시판 파일 다운로드 액션 -->
+		<action name="fileDownloadAction2" class="admin.adGoodsModifyForm" method="download2">
+			<result name="success" type="stream">
+		               <param name="contentType">binary/octet-stream</param>
+		               <param name="inputName">inputStream</param>
+		               <param name="contentDisposition">${contentDisposition}</param>
+		               <param name="contentLength">${contentLength}</param> 
+		               <param name="bufferSize">409600</param>
+		        </result>
+		</action>				
+				
+		<action name="adGoodsWrite" class="admin.adGoodsWrite">
+			<result type="redirect-action">
+				<param name="actionName">adGoodsList</param>
+			</result>
+		</action>		
+		
+		<action name="cateogyrWriteAction" class="category.categoryWriteAction">
+			<interceptor-ref name="params"/>
+			<result type="redirect-action">
+				<param name="actionName">adCategory</param>
+			</result>
+		</action>
+		
+		<action name="categoryModifyAction" class="category.categoryModifyAction">
+			<interceptor-ref name="params"/>
+			<result type="redirect-action">
+				<param name="actionName">adCategory</param>
+			</result>
+		</action>
+		
+		<action name="adGoodsModify" class="admin.adGoodsModify">
+			<result name="success" type="redirect">adGoodsList.action</result>
+		</action>
+		
+		
+	<!-- HR.event -->
+		<action name="adEventList"  class="event.eventList" method="admin">
+			<result name="success" type="tiles">
+				admin_evntList
+			</result>
+		</action>
+		<action name="adEventWriteForm" class="admin.eventWriteForm">
+			<result name="success" type="tiles">
+				admin_evntForm
+			</result>
+		</action>
+		<action name="adEventWrite" class="admin.eventWrite">
+			<interceptor-ref name="prepare"/>
+			<interceptor-ref name="modelDriven"/>
+			<interceptor-ref name="fileUpload"/>
+			<interceptor-ref name="params"/>
+			<result name="success" type="redirect-action">
+				<param name="actionName">adEventList</param>
+			</result>
+			<result name="error" type="chain">
+				<param name="actionName">dateReset</param>
+				<param name="namespace">/icase</param>
+			</result>
+		</action>
+	 	<action name="dateReset">
+			<interceptor-ref name="chain"/>
+			<interceptor-ref name="params"/>
+			<result>/admin/production/dateReset.jsp</result>
+		</action>
+		<action name="adSearchGoods" class="admin.SearchGoods">
+			<result name="success">/admin/production/adSearchGoods.jsp</result>
+		</action>
+		<action name="adEventView"  class="event.eventView">
+			<result name="success" type="tiles">
+				admin_evntView
+			</result>
+		</action>
+		<action name="adEventModifyForm" class="admin.eventModifyForm">
+			<result name="success" type="tiles">
+				admin_evntModifyForm
+			</result>
+		</action>
+		<action name="adEventModify" class="admin.eventModify">
+			<interceptor-ref name="prepare"/>
+			<interceptor-ref name="modelDriven"/>
+			<interceptor-ref name="fileUpload"/>
+			<interceptor-ref name="params"/>
+			<result name="success" type="chain">
+				<param name="actionName">adEventView</param>
+				<param name="namespace">/icase</param>
+			</result>
+			<result name="error" type="chain">
+				<param name="actionName">dateReset</param>
+				<param name="namespace">/icase</param>
+			</result>
+		</action>
+		<action name="adEventDelete" class="admin.eventDelete">
+			<result type="redirect-action">
+				<param name="actionName">adEventList</param>
+			</result>
+		</action>
+		<action name="eventList"  class="event.eventList">
+			<result name="success" type="tiles">
+				user_evntList
+			</result>
+		</action>
+		<action name="eventView"  class="event.eventView">
+			<result name="success" type="tiles">
+				user_evntView
+			</result>
+		</action>
+		<action name="eventCom"  class="event.eventCom">
+			<result name="success" type="chain">
+				<param name="actionName">eventView</param>
+			</result>
+			<result name="exist" type="chain">
+				<param name="actionName">existsId</param>
+				<param name="namespace">/icase</param>
+			</result>
+			<result name="over" type="chain">
+				<param name="actionName">overCmnt</param>
+				<param name="namespace">/icase</param>
+			</result>
+			<result name="error" type="chain">
+				<param name="actionName">wrongNo</param>
+				<param name="namespace">/icase</param>
+			</result>
+		</action>
+		<action name="existsId">
+			<interceptor-ref name="chain"/>
+			<interceptor-ref name="params"/>
+			<result>/customer/event/existsId.jsp</result>
+		</action>
+		<action name="overCmnt">
+			<interceptor-ref name="chain"/>
+			<interceptor-ref name="params"/>
+			<result>/customer/event/overCmnt.jsp</result>
+		</action> 
+		<action name="wrongNo">
+			<interceptor-ref name="chain"/>
+			<interceptor-ref name="params"/>
+			<result>/customer/event/wrongNo.jsp</result>
+		</action>
+		<action name="adEventCom"  class="event.eventCom" method="admin">
+			<result name="success" type="chain">
+				<param name="actionName">adEventView</param>
+			</result>
+			<result name="exist" type="chain">
+				<param name="actionName">existsId</param>
+				<param name="namespace">/icase</param>
+			</result>
+			<result name="over" type="chain">
+				<param name="actionName">overCmnt</param>
+				<param name="namespace">/icase</param>
+			</result>
+			<result name="error" type="chain">
+				<param name="actionName">wrongNo</param>
+				<param name="namespace">/icase</param>
+			</result>
+		</action>
+		
+		
+	<!-- YJ.member -->
+		<action name="loginform">
+			<result>
+				/customer/user/loginForm.jsp
+			</result>
+		</action>
+
+		<action name="login" class="member.LoginAction">
+			<interceptor-ref name="params" />
+			<result name="success" type="redirect">
+				main.action
+			</result>
+			<result name="login">/customer/user/loginCheck.jsp</result>
+		</action>
+
+		<action name="logout" class="member.LoginAction" method="logout">
+			<interceptor-ref name="params" />
+			<result name="success">
+				/customer/user/logoutCheck.jsp
+			</result>
+		</action>
+
+		<action name="join" class="member.JoinAction">
+			<interceptor-ref name="params" />
+			<result name="success">
+				/customer/user/joinCheck.jsp
+			</result>
+			<result name="error">
+				/customer/user/error.jsp
+			</result>
+		</action>
+		
+		<action name="findIdPwdForm">
+			<interceptor-ref name="params" />
+			<result>
+			/customer/user/findIdPwdForm.jsp
+			</result>
+		</action>
+		
+		<action name="findId" class="member.FindIdAction">
+			<interceptor-ref name="params" />
+			<result name="success">
+				/customer/user/findIdCheck.jsp
+			</result>
+			<result name="error">
+				/customer/user/error.jsp
+			</result>
+		</action>
+		
+		<action name="findPwd" class="member.FindPwdAction">
+			<interceptor-ref name="params" />
+			<result name="success">
+				/customer/user/findPwdCheck.jsp
+			</result>
+			<result name="error">
+				/customer/user/error.jsp
+			</result>
+		</action> 
+
+	<!-- HL.notic/qna/faq -->
+	<action name="faq_main">
+		<result name="success" type="tiles">
+			faq_main
+		</result>
+	</action>
+
+	<!-- 공지사항 관리자용 리스트 액션 -->
+	<action name="adnotice_list" class="event.adNoticeList">
+		<result name="success" type="tiles">
+			ad_notice_list
+		</result>
+	</action>
+	 	    
+	<!--  공지사항 고객용 리스트 액션  -->   
+	<action name="notice_list" class="cms.cmsNoticeList">
+		<result name="success" type="tiles">
+			cms_notice_list
+		</result>
+	</action>
+
+		<!-- 공지사항 관리자용 상세보기 액션 -->
+	<action name="adnotice_view" class="event.adNoticeView">
+		<result name="success" type="tiles">
+			ad_notice_view
+		</result>
+	</action>
+	    
+	   	<!-- 공지사항 고객용 상세보기 액션 -->
+	<action name="notice_view" class="cms.cmsNoticeView">
+		<result name="success" type="tiles">
+			cms_notice_view
+		</result>
+	</action>
+		
+		<!-- 공지사항 쓰기 처리 액션 -->
+	<action name="adnotice_write" class="event.adNoticeWrite">
+		<result type="redirect-action">
+			<param name="actionName">adnotice_list</param>
+		</result>
+	</action> 
+	
+	    <!-- 공지사항 쓰기 폼 액션	 -->    
+	<action name="adnotice_writeform" class="event.adNoticeWriteForm">
+		<result name="success" type="tiles">
+			ad_notice_writeform
+		</result>
+	</action>
+	    
+	   	<!-- 공지사항 수정 처리 액션 -->   
+	<action name="notice_modify" class="event.adNoticeModify">
+		<result type="redirect-action">
+			<param name="actionName">adnotice_list</param>
+		</result>
+	</action> 
+		<!-- 공지사항 수정 처리 폼 액션 -->
+	<action name="adnotice_modifyform" class="event.adNoticeModifyForm">
+		<result name="success" type="tiles">
+			ad_notice_modifyform
+		</result>
+	</action>
+	    
+	<!-- 공지사항 삭제 처리 액션. 게시글 노출 여부 : y -> n 으로 변경 -->
+	<action name="adnotice_delete" class="event.adNoticeDelete">
+		<result type="redirect-action">
+			<param name="actionName">adnotice_list</param>
+		</result>
+	</action>
+	     
+	<!--  qna -->
+	     
+	<!-- qna 관리자용 리스트 액션 -->
+	<action name="adqna_list" class="event.adQnaList">
+		<result name="success" type="tiles">
+			ad_qna_list
+		</result>
+	</action>
+	     
+	<!-- qna 고객용  리스트 액션 -->
+	<action name="qna_list" class="cms.cmsQnaList">
+		<result name="success" type="tiles">
+			cms_qna_list
+		</result>
+	</action>
+	    
+	<!-- qna 관리자용 상세보기  액션 -->
+	<action name="adqna_view" class="event.adQnaView">
+		<result name="success" type="tiles">
+			ad_qna_view
+		</result>
+	</action>
+	    
+	<!-- qna 고객용 상세보기  액션 -->
+	<action name="qna_view" class="cms.cmsQnaView">
+		<result name="success" type="tiles">
+			cms_qna_view
+		</result>
+		
+	<!-- 본인 글만 읽기처리에 관한 에러 액션 -->
+		<result name="error" type="chain">
+				<param name="actionName">iderror</param>
+				<param name="namespace">/icase</param>
+			</result>
+	</action>
+	
+	<!-- 본인 글만 읽기처리에 관한 에러 팝업창 -->
+	<action name="iderror">
+			<interceptor-ref name="chain"/>
+			<interceptor-ref name="params"/>
+			<result>/customer/cms/iderror.jsp</result>
+		</action>
+		
+	<!-- qna 글쓰기 처리 액션 -->
+	<action name="qna_write" class="cms.cmsQnaWrite">
+		<result name="success" type="redirect-action">
+			<param name="actionName">qna_list</param>
+		</result>
+	</action>
+	    
+	<!-- qna 글쓰기 폼 액션 -->
+	<action name="qna_writeform" class="cms.cmsQnaWriteForm">
+		<result name="success" type="tiles">
+			cms_qna_writeform
+		</result>
+	</action>
+	    
+	<!-- qna 글 수정 처리 액션 -->
+	<action name="qna_modify" class="cms.cmsQnaModify">
+		<result type="redirect-action">
+			<param name="actionName">qna_list</param>
+		</result>
+	</action>
+	<!-- qna 글 수정 폼 액션 -->
+	<action name="qna_modifyform" class="cms.cmsQnaModifyForm">
+		<result name="success" type="tiles">
+			cms_qna_modifyform
+		</result>
+	</action>
+
+	    <!-- qna 관리자용 글 삭제 액션 -->
+	<action name="adqna_delete" class="cms.cmsQnaDelete">
+		<result type="redirect-action">
+			<param name="actionName">adqna_list</param>
+		</result>
+	</action>
+	    
+	    <!-- qna 고객용 글 삭제 액션 -->
+	<action name="qna_delete" class="cms.cmsQnaDelete">
+		<result type="redirect-action">
+			<param name="actionName">qna_list</param>
+		</result>
+	</action>
+	    
+	<!-- 관리자용 코맨트 액션 -->
+	<action name="qna_comment" class="cms.cmsQnaComment">
+		<interceptor-ref name="params" />
+		<result name="success" type="redirect">adqna_view.action?no=${no}</result>
+	</action>
+	
+	</package>
+
+</struts>

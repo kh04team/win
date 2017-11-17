@@ -1,0 +1,8 @@
+
+11.17 수정본 설명
+struts - 385~389 (관리자 상세보기) 396~408 (본인글 보기) 
+cmsQnaView - class (본인 글만 읽기처리 로직추가)
+cmsQnaList - jsp (본인 글만 읽기 로직추가) 
+adQnaList - jsp (답변일/미답변 추가)
+adQnaView - class (관리자 상세보기 클레스 추가) 
+
