@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN'
+	'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="orderSet">
+	
+	<typeAlias alias="orderSet" type="order.order_bin"/>
+	<typeAlias alias="orderStat" type="order.order_Status_bin"/>
+	
+	<resultMap id="refundRes" class="orderSet">
+		
+		<result property="goods_name" column="goods_name" />
+		<result property="order_qty" column="order_qty" />
+		
+	</resultMap>		
+
+	<resultMap id="orderBinRes" class="orderSet">
+		
+		<result property="order_price" column="order_price" />
+		<result property="goods_no" column="goods_no" />
+		<result property="order_qty" column="order_qty" />
+		
+	</resultMap>	
+
+	<resultMap id="orderBinRes2" class="orderSet">
+		
+		<result property="goods_name" column="goods_name" />
+		<result property="order_qty" column="order_qty" />
+		
+	</resultMap>	
+
+	<resultMap id="orderBinRes3" class="orderSet">
+		
+		<result property="order_price" column="order_price" />
+		<result property="order_qty" column="order_qty" />
+		<result property="datetime" column="datetime" />
+		
+	</resultMap>	
+
+	<resultMap id="orderBinRes4" class="orderSet">
+		
+		<result property="order_price" column="order_price" />
+		<result property="order_qty" column="order_qty" />
+		
+	</resultMap>	
+
+	<resultMap id="backListRes" class="orderStat">
+		
+		<result property="goods_name" column="goods_name" />
+		<result property="goods_color" column="goods_color" />
+		<result property="order_qty" column="order_qty" />
+		<result property="order_no" column="order_no" />	
+		<result property="order_price" column="order_price" />	
+		<result property="reason" column="reason" />
+		<result property="order_status" column="order_status" />
+		<result property="no" column="no" />
+		<result property="back_no" column="back_no" />
+		
+		
+	</resultMap>
+
+	<resultMap id="refundListRes" class="orderStat">
+		
+		<result property="goods_name" column="goods_name" />
+		<result property="goods_color" column="goods_color" />
+		<result property="order_qty" column="order_qty" />
+		<result property="order_no" column="order_no" />	
+		<result property="order_price" column="order_price" />	
+		<result property="reason" column="reason" />
+		<result property="order_status" column="order_status" />
+		<result property="no" column="no" />
+		<result property="refund_no" column="refund_no" />
+		
+		
+	</resultMap>	
+	
+	<resultMap id="changeListRes" class="orderStat">
+		
+		<result property="goods_name" column="goods_name" />
+		<result property="goods_color" column="goods_color" />
+		<result property="order_qty" column="order_qty" />
+		<result property="order_no" column="order_no" />	
+		<result property="order_price" column="order_price" />	
+		<result property="reason" column="reason" />
+		<result property="order_status" column="order_status" />
+		<result property="no" column="no" />
+		<result property="change_no" column="change_no" />
+		
+		
+	</resultMap>		
+	
+	<resultMap id="refundOneRes" class="orderStat">
+		
+		<result property="goods_name" column="goods_name" />
+		<result property="goods_color" column="goods_color" />
+		<result property="order_qty" column="order_qty" />
+		<result property="order_no" column="order_no" />	
+		<result property="order_price" column="order_price" />	
+		<result property="reason" column="reason" />
+		<result property="order_status" column="order_status" />
+		<result property="no" column="no" />
+		<result property="refund_no" column="refund_no" />
+		<result property="admin_memo" column="admin_memo" />
+		
+	</resultMap>			
+
+	<resultMap id="backOneRes" class="orderStat">
+		
+		<result property="goods_name" column="goods_name" />
+		<result property="goods_color" column="goods_color" />
+		<result property="order_qty" column="order_qty" />
+		<result property="order_no" column="order_no" />	
+		<result property="order_price" column="order_price" />	
+		<result property="reason" column="reason" />
+		<result property="order_status" column="order_status" />
+		<result property="no" column="no" />
+		<result property="back_no" column="back_no" />
+		<result property="admin_memo" column="admin_memo" />
+		
+	</resultMap>
+
+	<resultMap id="changeOneRes" class="orderStat">
+		
+		<result property="goods_name" column="goods_name" />
+		<result property="goods_color" column="goods_color" />
+		<result property="order_qty" column="order_qty" />
+		<result property="order_no" column="order_no" />	
+		<result property="order_price" column="order_price" />	
+		<result property="reason" column="reason" />
+		<result property="order_status" column="order_status" />
+		<result property="no" column="no" />
+		<result property="change_no" column="change_no" />
+		<result property="admin_memo" column="admin_memo" />
+		
+	</resultMap>
+
+	<select id="selectOneBack" resultMap="backOneRes" parameterClass="orderStat">
+		select a.*, 
+		(select goods_name from orders where no = a.back_no) as goods_name,
+		(select order_qty from orders where no = a.back_no) as order_qty,
+		(select order_no from orders where no = a.back_no) as order_no,		
+		(select order_price from orders where no = a.back_no) as order_price,
+		(select goods_color from orders where no = a.back_no) as goods_color		
+		from back_list a where no = #no#
+	</select>
+
+	<select id="selectOneRefund" resultMap="refundOneRes" parameterClass="orderStat">
+		select a.*, 
+		(select goods_name from orders where no = a.refund_no) as goods_name,
+		(select order_qty from orders where no = a.refund_no) as order_qty,
+		(select order_no from orders where no = a.refund_no) as order_no,		
+		(select order_price from orders where no = a.refund_no) as order_price,
+		(select goods_color from orders where no = a.refund_no) as goods_color		
+		from refund_list a where no = #no#
+	</select>
+
+	<select id="selectOneChange" resultMap="changeOneRes" parameterClass="orderStat">
+		select a.*, 
+		(select goods_name from orders where no = a.change_no) as goods_name,
+		(select order_qty from orders where no = a.change_no) as order_qty,
+		(select order_no from orders where no = a.change_no) as order_no,		
+		(select order_price from orders where no = a.change_no) as order_price,
+		(select goods_color from orders where no = a.change_no) as goods_color		
+		from change_list a where no = #no#
+	</select>
+
+	<select id="selectChangeAll" resultMap="changeOneRes" parameterClass="orderStat">
+		select a.*, 
+		(select goods_name from orders where no = a.change_no) as goods_name,
+		(select order_qty from orders where no = a.change_no) as order_qty,
+		(select order_no from orders where no = a.change_no) as order_no,		
+		(select order_price from orders where no = a.change_no) as order_price,
+		(select goods_color from orders where no = a.change_no) as goods_color		
+		from change_list a
+		ORDER BY no DESC
+	</select>
+
+	<select id="selectBackAll" resultMap="backListRes" parameterClass="String">
+		select a.*, 
+		(select goods_name from orders where no = a.back_no) as goods_name,
+		(select order_qty from orders where no = a.back_no) as order_qty,
+		(select order_no from orders where no = a.back_no) as order_no,		
+		(select order_price from orders where no = a.back_no) as order_price,
+		(select goods_color from orders where no = a.back_no) as goods_color		
+		from back_list a 
+		ORDER BY no DESC
+	</select>
+
+	<select id="selectRefundAll" resultMap="refundListRes" parameterClass="String">
+		select a.*, 
+		(select goods_name from orders where no = a.refund_no) as goods_name,
+		(select order_qty from orders where no = a.refund_no) as order_qty,
+		(select order_no from orders where no = a.refund_no) as order_no,		
+		(select order_price from orders where no = a.refund_no) as order_price,
+		(select goods_color from orders where no = a.refund_no) as goods_color		
+		from refund_list a 
+		ORDER BY no DESC
+	</select>
+	
+	<select id="selectBackSearch" resultMap="backListRes" parameterClass="string">
+		select a.*, 
+		(select goods_name from orders where no = a.back_no) as goods_name,
+		(select order_qty from orders where no = a.back_no) as order_qty,
+		(select order_no from orders where no = a.back_no) as order_no,		
+		(select order_price from orders where no = a.back_no) as order_price,
+		(select goods_color from orders where no = a.back_no) as goods_color	
+		from back_list a 
+		where a.back_no in (select no from orders where goods_name like #searchKeyword#) ORDER BY a.no DESC				
+	</select>	
+	
+	<select id="selectRefundSearch" resultMap="refundListRes" parameterClass="string">
+		select a.*, 
+		(select goods_name from orders where no = a.refund_no) as goods_name,
+		(select order_qty from orders where no = a.refund_no) as order_qty,
+		(select order_no from orders where no = a.refund_no) as order_no,		
+		(select order_price from orders where no = a.refund_no) as order_price,
+		(select goods_color from orders where no = a.refund_no) as goods_color	
+		from refund_list a 
+		where a.refund_no in (select no from orders where goods_name like #searchKeyword#) ORDER BY a.no DESC				
+	</select>	
+	
+	<select id="selectChangeSearch" resultMap="changeListRes" parameterClass="string">
+		select a.*, 
+		(select goods_name from orders where no = a.change_no) as goods_name,
+		(select order_qty from orders where no = a.change_no) as order_qty,
+		(select order_no from orders where no = a.change_no) as order_no,		
+		(select order_price from orders where no = a.change_no) as order_price,
+		(select goods_color from orders where no = a.change_no) as goods_color	
+		from change_list a 
+		where a.change_no in (select no from orders where goods_name like #searchKeyword#) ORDER BY a.no DESC				
+	</select>		
+	
+	<select id="selectInform" resultMap="refundRes" parameterClass="orderSet">
+		select * from orders where no = #no# ORDER BY order_no DESC
+	</select>
+	
+	<select id="selectOrderRate1" resultMap="orderBinRes2" parameterClass="string">
+		select 
+		  (select goods_name from goods where goods_no = a.goods_no) as goods_name,
+		  sum(order_qty) as order_qty
+		from order_rate a where date_set like #dateSet# group by a.goods_no
+		order by a.goods_no desc
+	</select>	
+	
+	<select id="selectOrderRate2" resultMap="orderBinRes3" parameterClass="string">
+		select 
+		  sum(price) as order_price,
+		  sum(order_qty) as order_qty,
+		  substr(date_set, 6, 2) as datetime
+		from order_rate a where date_set like #dateSet# group by date_set
+		order by a.date_set asc		
+	</select>		
+
+	<select id="selectOrderRate3" resultMap="orderBinRes4" parameterClass="string">	
+		select 
+		  sum(price) as order_price,
+		  sum(order_qty) as order_qty
+		from order_rate 	
+	</select>
+		
+	<select id="selectOrderDate" resultMap="orderBinRes" parameterClass="string">
+		select 
+		sum(a.order_qty) as order_qty, 
+		a.goods_no, 
+		sum(order_price) as order_price
+		from orders a where a.datetime like #date_set_value# and status = 'y' group by goods_no
+	</select>		
+	
+	<update id="updateOrderCancel" parameterClass="orderSet">
+			UPDATE orders SET order_status = '주문취소' WHERE no = #no#
+	</update>		
+	
+	<update id="updateOrderRefundStatus" parameterClass="orderStat">
+			UPDATE refund_list SET admin_memo = #admin_memo#, order_status = #order_status# WHERE no = #no#
+	</update>			
+	
+	<update id="updateOrderBackStatus" parameterClass="orderStat">
+			UPDATE back_list SET admin_memo = #admin_memo#, order_status = #order_status# WHERE no = #no#
+	</update>		
+	
+	<update id="updateOrderChangeStatus" parameterClass="orderStat">
+			UPDATE change_list SET admin_memo = #admin_memo#, order_status = #order_status# WHERE no = #no#
+	</update>		
+	
+	<update id="updateOrderStatus" parameterClass="orderStat">
+			UPDATE orders SET order_status = #order_status# WHERE no = #no#
+	</update>		
+	
+	<insert id="insertBack" parameterClass="orderStat">
+		INSERT INTO back_list(no, back_no, status, order_status, reason)
+		VALUES (back_no_seq.NEXTVAL, #back_no#, 'y', #order_status#, #reason#)
+	</insert>	
+
+	<insert id="insertRefund" parameterClass="orderStat">
+		INSERT INTO refund_list(no, refund_no, status, order_status, reason)
+		VALUES (refund_no_seq.NEXTVAL, #refund_no#, 'y', #order_status#, #reason#)
+	</insert>	
+
+	<insert id="insertChange" parameterClass="orderStat">
+		INSERT INTO change_list(no, change_no, status, order_status, reason)
+		VALUES (change_no_seq.NEXTVAL, #change_no#, 'y', #order_status#, #reason#)
+	</insert>	
+	
+	<insert id="insertRate" parameterClass="orderSet">
+		INSERT INTO order_rate(no, date_set, price, order_qty, goods_no)
+		VALUES (order_rate_no.NEXTVAL, #datetime#, #order_price#, #order_qty#, #goods_no#)
+	</insert>
+	
+	<delete id="deleteRateAll" parameterClass="int">
+		DELETE FROM order_rate
+	</delete>		
+	
+</sqlMap>

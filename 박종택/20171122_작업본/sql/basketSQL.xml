@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN'
+	'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="basket">
+
+	<typeAlias alias="basket" type="basket.basket_bin"/>
+	<typeAlias alias="order" type="basket.order_bin"/>
+	<typeAlias alias="goodsSet" type="goods.goods_bin"/>
+
+	<resultMap id="basketRes" class="basket">
+		<result property="no" column="no" />
+		<result property="goods_name" column="goods_name" />
+		<result property="main_img_save" column="main_img_save" />		
+		<result property="goods_no" column="goods_no" />
+		<result property="goods_qty" column="goods_qty" />
+		<result property="goods_price" column="goods_price" />
+		<result property="id" column="id" />
+	</resultMap>	
+	
+	<resultMap id="basketSettleInformRes" class="order">
+		<result property="no" column="no" />
+		<result property="goods_name" column="goods_name" />
+		<result property="main_img_save" column="main_img_save" />		
+		<result property="goods_no" column="goods_no" />
+		<result property="order_qty" column="order_qty" />
+		<result property="goods_color" column="goods_color" />
+		<result property="order_price" column="order_price" />
+		<result property="category_no" column="category_no" />
+		<result property="id" column="id" />
+	</resultMap>		
+	
+	<resultMap id="OrderSettleWaitInformRes" class="order">
+		<result property="no" column="no" />
+		<result property="order_no" column="order_no" />
+		<result property="goods_name" column="goods_name" />
+		<result property="main_img_save" column="main_img_save" />		
+		<result property="goods_no" column="goods_no" />
+		<result property="order_qty" column="order_qty" />
+		<result property="goods_color" column="goods_color" />
+		<result property="order_price" column="order_price" />
+		<result property="category_no" column="category_no" />
+		<result property="id" column="id" />
+	</resultMap>		
+	
+	<resultMap id="basketSumRes" class="basket">
+		<result property="goods_price_sum" column="goods_price_sum" />
+	</resultMap>	
+	
+	<resultMap id="OrderSumRes" class="order">
+		<result property="order_price_sum" column="order_price_sum" />
+	</resultMap>		
+	
+	<resultMap id="basketPriceChoiceRes" class="basket">
+		<result property="goods_price" column="goods_price" />
+	</resultMap>		
+	
+	<resultMap id="goodsPriceChoiceRes" class="basket">
+		<result property="goods_price" column="goods_price" />
+	</resultMap>		
+
+	<resultMap id="OrderMaxNoRes" class="order">
+		<result property="no" column="no" />
+	</resultMap>
+
+	<select id="selectBasketInformAll" resultMap="basketSettleInformRes" parameterClass="int">
+		select a.*, 
+			(select goods_name from goods where goods_no = a.goods_no) as goods_name, 
+			(select main_img_save from goods where goods_no = a.goods_no) as main_img_save,
+			(select goods_color from goods where goods_no = a.goods_no) as goods_color,
+			(select category_no from goods where goods_no = a.goods_no) as category_no,	
+			goods_qty as order_qty,
+			goods_price as order_price			 
+		from basket a where no = #no# and status = 'y' order by no desc 
+	</select>	
+	
+	<select id="selectOrderWaitInformAll" resultMap="OrderSettleWaitInformRes" parameterClass="string">
+		select a.*, 
+			(select main_img_save from goods where goods_no = a.goods_no) as main_img_save
+		from orders a where id = #id# and status = 'y' and basket_status = 'y' order by no desc 
+	</select>		
+	
+	<select id="selectBasketAll" resultMap="basketRes" parameterClass="string">
+		select a.*, (select goods_name from goods where goods_no = a.goods_no) as goods_name, (select main_img_save from goods where goods_no = a.goods_no) as main_img_save from basket a where id = #id# and status = 'y' order by no desc 
+	</select>	
+	
+	<select id="selectOrderPriceSum" resultMap="OrderSumRes" parameterClass="order">
+		select sum(order_price) as order_price_sum from orders where id = #id# and status = 'y' and basket_status = 'y'
+	</select>	
+	
+	<select id="selectBasketPriceSum" resultMap="basketSumRes" parameterClass="basket">
+		select sum(goods_price) as goods_price_sum from basket where id = #id# and status = 'y'
+	</select>
+
+	<select id="selectGoodsPriceChoice" resultMap="goodsPriceChoiceRes" parameterClass="basket">
+		select goods_price from goods where goods_no = #goods_no# and status = 'y'
+	</select>
+
+	<select id="selectBasketPriceChoice" resultMap="basketPriceChoiceRes" parameterClass="basket">
+		select goods_price from basket where no = #no# and status = 'y'
+	</select>
+
+	<select id="selectOrderNoMax" resultMap="OrderMaxNoRes" parameterClass="int">
+		select max(order_key) as no from order_no
+	</select>
+
+	
+	<insert id="insertBasketOrder" parameterClass="order">
+		INSERT INTO orders(no, order_no, category_no, goods_no, goods_name, goods_color, order_qty, order_price, id, settle_type, order_status, status, basket_status, datetime)
+		VALUES (orders_no_seq.NEXTVAL, #order_no#, #category_no#, #goods_no#, #goods_name#, #goods_color#, #order_qty#, #order_price#, #id#, '', #order_status#, 'y', 'y', #datetime#)
+	</insert>
+	
+	<insert id="insertOrderNo" parameterClass="int">
+		INSERT INTO order_no(order_key)
+		VALUES (order_no_seq.NEXTVAL)
+	</insert>	
+	
+	<insert id="insertBasket" parameterClass="basket">
+		INSERT INTO basket(no, goods_no, goods_qty, goods_price, status, id)
+		VALUES (basket_no_seq.NEXTVAL, #goods_no#, #goods_qty#, #goods_price#, 'y', #id#)
+	</insert>		
+
+	<update id="updateOrderStatus" parameterClass="order">
+			UPDATE orders SET status = 'y', basket_status = 'n', mem_name = #mem_name#, zip_code = #zip_code#, address1 = #address1#, address2 = #address2#, phone = #phone#, settle_type = #settle_type#, order_memo = #order_memo#, order_status = #order_status# WHERE order_no = #order_no#
+	</update>	
+
+	<update id="deleteOrder" parameterClass="order">
+			UPDATE orders SET status = 'n' WHERE no = #no#
+	</update>		
+	
+	<delete id="deleteBasket" parameterClass="basket">
+		DELETE FROM basket where no = #no#
+	</delete>	
+	
+	<update id="updateBasketPrice" parameterClass="basket">
+			UPDATE basket SET goods_qty = #goods_qty#, goods_price = #goods_price# WHERE no = #no#
+	</update>
+	
+	<update id="updateBasketStatus" parameterClass="basket">
+			UPDATE orders SET basket_status = 'n' WHERE id = #id#
+	</update>	
+	
+</sqlMap>

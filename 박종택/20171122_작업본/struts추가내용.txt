@@ -1,0 +1,118 @@
+<!-- Å¬·¡½º Ãß°¡ µÊ. -->	    
+<action name="adMain" class="order.orderRate">
+    <result name="success" type="tiles">
+     admin_main
+    </result>
+</action>
+
+		<!-- 20171119 - 20171122 pjt -->
+		
+		<action name="orderStatusChange" class="order.orderStatusChange">
+			<result name="success" type="redirect-action">
+				<param name="actionName">orderlist</param>
+			</result>
+		</action>	
+
+		<action name="orderStatusBackForm" class="order.orderStatusChange" method="backForm">
+		     <result name="success" type="tiles">
+		     order_reund
+		     </result>
+		</action>	
+		
+		<action name="orderStatusRefundForm" class="order.orderStatusChange" method="refundForm">
+		     <result name="success" type="tiles">
+		     order_reund
+		     </result>
+		</action>			
+		
+		<action name="orderStatusChangeForm" class="order.orderStatusChange" method="changeForm">
+		     <result name="success" type="tiles">
+		     order_reund
+		     </result>
+		</action>				
+		
+		<action name="goodsBack" class="order.orderStatusChange" method="back">
+			<result name="success" type="redirect-action">
+				<param name="actionName">orderlist</param>
+			</result>
+		</action>			
+		
+		<action name="goodsRefund" class="order.orderStatusChange" method="refund">
+			<result name="success" type="redirect-action">
+				<param name="actionName">orderlist</param>
+			</result>
+		</action>			
+
+		<action name="goodsChange" class="order.orderStatusChange" method="change">
+			<result name="success" type="redirect-action">
+				<param name="actionName">orderlist</param>
+			</result>
+		</action>			
+
+	    <action name="adRefundList" class="admin.adRefundList">
+	     <result name="success" type="tiles">
+	      admin_refund
+	     </result>
+	    </action>   
+
+	    <action name="adRefundView" class="order.adRefundModifyForm">
+	     <result name="success" type="tiles">
+	      admin_refund_modify
+	     </result>
+	    </action>   
+
+	    <action name="adminRefundPro" class="order.orderStatusChange" method="admin_refund">
+			<interceptor-ref name="params" />
+			<result name="success" type="redirect">adRefundView.action?no=${no}</result>
+	    </action>  
+
+	    <action name="adBackList" class="admin.adBackList">
+	     <result name="success" type="tiles">
+	      admin_back
+	     </result>
+	    </action>   
+	    
+	    <action name="adBackView" class="order.adBackModifyForm">
+	     <result name="success" type="tiles">
+	      admin_back_modify
+	     </result>
+	    </action>   
+
+	    <action name="adminChangePro" class="order.orderStatusChange" method="admin_change">
+			<interceptor-ref name="params" />
+			<result name="success" type="redirect">adChangeView.action?no=${no}</result>
+	    </action>  
+
+	    <action name="adChangeList" class="admin.adChangeList">
+	     <result name="success" type="tiles">
+	      admin_change
+	     </result>
+	    </action>   
+	    
+	    <action name="adChangeView" class="order.adChangeModifyForm">
+	     <result name="success" type="tiles">
+	      admin_change_modify
+	     </result>
+	    </action>  
+
+	    <action name="adminBackPro" class="order.orderStatusChange" method="admin_back">
+			<interceptor-ref name="params" />
+			<result name="success" type="redirect">adBackView.action?no=${no}</result>
+	    </action>   
+	    
+	    	    
+		<action name="idCheckPro" class="user.join_id_chk">
+	     <result name="success">/customer/user/join_id_chk.jsp</result>
+	    </action>	    
+		
+		<action name="basketAllDelete" class="basket.basketSettle" method="all_delete">
+				<result type="redirect-action">
+					<param name="actionName">basketall</param>
+				</result>			
+		</action>		
+		
+		<!-- 20171119 - 20171122 ³¡ pjt -->
+		<!-- ¿¢¼¿°ü·Ã -->
+		  <action name="downAction" class="admin.downAction">
+		     <result name="success">/admin/production/order_down_excel.jsp</result>
+		    </action>

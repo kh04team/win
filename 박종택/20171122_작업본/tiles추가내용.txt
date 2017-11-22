@@ -1,0 +1,51 @@
+  <!-- pjt tiles 추가 -->
+
+  <definition name="adRefund" template="/customer/main.jsp" > 
+   <put-attribute name="header" value="/customer/header.jsp" />
+   <put-attribute name="footer" value="/customer/footer.jsp" />
+   <put-attribute name="body" value="/customer/order/refund_page.jsp" />    
+  </definition>
+
+  <definition name="admin_back" template="/admin/production/adminmain.jsp" > 
+   <put-attribute name="header" value="/admin/production/adminheader.jsp" />
+   <put-attribute name="leftmenu" value="/admin/production/leftmenu.jsp" />
+   <put-attribute name="top" value="/admin/production/topnavi.jsp" />
+   <put-attribute name="body" value="/admin/production/adBackList.jsp" />    
+  </definition>
+
+  <definition name="admin_refund" template="/admin/production/adminmain.jsp" > 
+   <put-attribute name="header" value="/admin/production/adminheader.jsp" />
+   <put-attribute name="leftmenu" value="/admin/production/leftmenu.jsp" />
+   <put-attribute name="top" value="/admin/production/topnavi.jsp" />
+   <put-attribute name="body" value="/admin/production/adRefundList.jsp" />    
+  </definition>
+
+  <definition name="admin_back_modify" template="/admin/production/adminmain.jsp" > 
+   <put-attribute name="header" value="/admin/production/adminheader.jsp" />
+   <put-attribute name="leftmenu" value="/admin/production/leftmenu.jsp" />
+   <put-attribute name="top" value="/admin/production/topnavi.jsp" />
+   <put-attribute name="body" value="/admin/production/adBackModifyForm.jsp" />    
+  </definition>  
+
+  <definition name="admin_refund_modify" template="/admin/production/adminmain.jsp" > 
+   <put-attribute name="header" value="/admin/production/adminheader.jsp" />
+   <put-attribute name="leftmenu" value="/admin/production/leftmenu.jsp" />
+   <put-attribute name="top" value="/admin/production/topnavi.jsp" />
+   <put-attribute name="body" value="/admin/production/adRefundModifyForm.jsp" />    
+  </definition>        
+
+  <definition name="admin_change" template="/admin/production/adminmain.jsp" > 
+   <put-attribute name="header" value="/admin/production/adminheader.jsp" />
+   <put-attribute name="leftmenu" value="/admin/production/leftmenu.jsp" />
+   <put-attribute name="top" value="/admin/production/topnavi.jsp" />
+   <put-attribute name="body" value="/admin/production/adChangeList.jsp" />    
+  </definition>
+
+  <definition name="admin_change_modify" template="/admin/production/adminmain.jsp" > 
+   <put-attribute name="header" value="/admin/production/adminheader.jsp" />
+   <put-attribute name="leftmenu" value="/admin/production/leftmenu.jsp" />
+   <put-attribute name="top" value="/admin/production/topnavi.jsp" />
+   <put-attribute name="body" value="/admin/production/adChangeModifyForm.jsp" />    
+  </definition>  
+
+   <!-- pjt tiles 추가 끝 -->

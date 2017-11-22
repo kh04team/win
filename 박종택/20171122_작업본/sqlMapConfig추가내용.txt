@@ -1,0 +1,4 @@
+	<!-- pjt 추가 시작 -->
+	<sqlMap resource="/sql/orderSQL.xml" />
+	
+	<!-- pjt 추가 끝 -->	

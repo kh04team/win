@@ -1,0 +1,155 @@
+<script type="text/javascript">
+// 역시 이 문서 참조하실시 되도록 하단에 넣어주세요
+
+	function choice_all_settle()
+	{
+		if(confirm('전체결제하시겠습니까?'))
+		{
+		   var basket_array = "";
+		   $("input:checkbox[id='basket_no']").each(function() { 
+	
+			   if($(this).prop("checked") == false) $(this).prop("checked", true);		   
+			   basket_array = basket_array + "||" + $(this).val();
+		   	   
+		   });
+		   
+		   $("#choice_basket_no_list").val(basket_array);
+		   
+		   $('form[name=basket_form]').attr({action:'/icase/basketSettle.action', method:'post'}).submit();
+		}
+	}	
+	
+	function choice_select_delete()
+	{
+		if(confirm('선택삭제하시겠습니까?'))
+		{
+		   if($('input[name=basket_no]:checked').length == 0) 
+		   {
+			   alert("주문을 선택해주세요.");
+			   return;
+		   }
+		   
+		   var basket_array = "";
+		   $('input[name=basket_no]:checked').each(function() { 
+			   
+			   basket_array = basket_array + "||" + $(this).val();
+		   	   
+		   });
+		   
+		   $("#choice_basket_no_list").val(basket_array);
+		   
+		   $('form[name=basket_form]').attr({action:'/icase/basketAllDelete.action', method:'post'}).submit();
+		}
+	   
+	}		
+	
+	function choice_all_delete()
+	{
+		if(confirm('전체삭제하시겠습니까?'))
+		{
+		   var basket_array = "";
+		   $("input:checkbox[id='basket_no']").each(function() { 
+	
+			   if($(this).prop("checked") == false) $(this).prop("checked", true);		   
+			   basket_array = basket_array + "||" + $(this).val();
+		   	   
+		   });
+		   
+		   $("#choice_basket_no_list").val(basket_array);
+		   
+		   $('form[name=basket_form]').attr({action:'/icase/basketAllDelete.action', method:'post'}).submit();
+		}
+	   
+	}	
+
+
+	$(function() {
+
+		$("#basket_check_all").click(function () {
+			
+		   $('input[name=basket_no]').each(function() { 
+			   
+			   if($(this).prop('checked') == true) $(this).prop('checked', false);
+			   else $(this).prop('checked', true);				   
+		   	   
+		   });
+							
+		});
+	});
+
+	// 20171120 박종택 스크립트 추가
+	function orderStatusChange(no)
+	{
+		if(confirm("주문취소하시겠습니까?"))
+		{
+			location.href = "/icase/orderStatusChange.action?no="+no;
+			return;
+		}
+	}
+		
+	function orderStatusBack(no)
+	{
+		if(confirm("반품신청하시겠습니까?"))
+		{
+			location.href = "/icase/orderStatusBackForm.action?no="+no+"&orderStatus=back";
+			return;
+		}
+	}
+
+
+	function orderStatusRefund(no)
+	{
+		if(confirm("환불신청하시겠습니까?"))
+		{
+			location.href = "/icase/orderStatusRefundForm.action?no="+no+"&orderStatus=refund";
+			return;
+		}
+	}
+	
+	function orderStatusChange(no)
+	{
+		if(confirm("교환신청하시겠습니까?"))
+		{
+			location.href = "/icase/orderStatusChangeForm.action?no="+no+"&orderStatus=change";
+			return;
+		}
+	}	
+	
+	function backRequest()
+	{
+		if($("#reason").val() == "")
+		{
+			alert("반품사유를 입력해주세요.");
+			$("#reason").focus();
+			return;
+		}
+		
+		if(confirm("반품신청하시겠습니까?")) $('form[name=refundForm]').attr({action:'/icase/goodsBack.action', method:'post'}).submit();
+	}
+	
+	function refundRequest()
+	{
+		if($("#reason").val() == "")
+		{
+			alert("환불사유를 입력해주세요.");
+			$("#reason").focus();
+			return;
+		}
+		
+		if(confirm("환불신청하시겠습니까?")) $('form[name=refundForm]').attr({action:'/icase/goodsRefund.action', method:'post'}).submit();
+	}	
+	
+	function changeRequest()
+	{
+		if($("#reason").val() == "")
+		{
+			alert("교환사유를 입력해주세요.");
+			$("#reason").focus();
+			return;
+		}
+		
+		if(confirm("교환신청하시겠습니까?")) $('form[name=refundForm]').attr({action:'/icase/goodsChange.action', method:'post'}).submit();
+	}		
+	// end 
+
+</script>

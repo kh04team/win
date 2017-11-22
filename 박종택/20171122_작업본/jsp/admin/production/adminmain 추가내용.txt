@@ -1,0 +1,202 @@
+	<!-- morris.js -->
+	<script src="/icase/admin/vendors/raphael/raphael.js"></script>
+	<script src="/icase/admin/vendors/morris.js/morris.js"></script>  	
+  	
+    <!-- ECharts -->
+    <script src="/icase/admin/vendors/echarts/dist/echarts.js"></script>
+    <script src="/icase/admin/vendors/echarts/map/js/world.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <!-- custom.min.js에서 custom.js로 수정 -->
+    <script src="/icase/admin/build/js/custom.js"></script> 
+
+
+<script type="text/javascript">
+	// 이문서로 참조하실시 스크립트는 되도록 하단에 넣어주세요.
+
+			$(function() {
+
+	  			$("#back_search_button").click(function () {
+	  				
+	  				if($("#searchKeyword").val() == "")
+	  				{
+	  					alert("검색내용을 입력해주세요.");
+	  					$("#searchKeyword").focus();
+	  					return;
+	  				}  				
+	  				
+	  				$('form[name=back_list_search]').attr({action:'adBackList.action', method:'post'}).submit();
+	  				
+	  			});	  			
+
+	  			$("#refund_search_button").click(function () {
+	  				
+	  				if($("#searchKeyword").val() == "")
+	  				{
+	  					alert("검색내용을 입력해주세요.");
+	  					$("#searchKeyword").focus();
+	  					return;
+	  				}  				
+	  				
+	  				$('form[name=refund_list_search]').attr({action:'adRefundList.action', method:'post'}).submit();
+	  				
+	  			});	
+	  			
+	  			$("#change_search_button").click(function () {
+	  				
+	  				if($("#searchKeyword").val() == "")
+	  				{
+	  					alert("검색내용을 입력해주세요.");
+	  					$("#searchKeyword").focus();
+	  					return;
+	  				}  				
+	  				
+	  				$('form[name=change_list_search]').attr({action:'adChangeList.action', method:'post'}).submit();
+	  				
+	  			});
+			});
+
+		function init_morris_charts() {
+			
+			if( typeof (Morris) === 'undefined'){ return; }
+			console.log('init_morris_charts');
+			
+			if ($('#graph_bar').length){ 
+			
+				Morris.Bar({
+				  element: 'graph_bar',
+				  data: [
+					<s:iterator value="listRate" status="stat">
+						{device: '${goods_name}', geekbench: '${order_qty}'},
+					</s:iterator>
+					/*
+					{device: 'iPhone 4S', geekbench: 655},
+					{device: 'iPhone 3GS', geekbench: 275},
+					{device: 'iPhone 5', geekbench: 1571},
+					{device: 'iPhone 5S', geekbench: 655},
+					{device: 'iPhone 6', geekbench: 2154},
+					{device: 'iPhone 6 Plus', geekbench: 1144},
+					{device: 'iPhone 6S', geekbench: 2371},
+					{device: 'iPhone 6S Plus', geekbench: 1471},
+					{device: 'Other', geekbench: 1371},
+					{device: 'Other', geekbench: 1371},
+					{device: 'Other2', geekbench: 1371}
+					*/
+				  ],
+				  xkey: 'device',
+				  ykeys: ['geekbench'],
+				  labels: ['수량'],
+				  barRatio: 0.4,
+				  barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+				  xLabelAngle: 15,
+				  hideHover: 'auto',
+				  resize: true
+				});
+
+			}	
+			
+			  //echart Bar
+			  
+			if ($('#mainb').length ){
+			  
+				var theme = 'minimal';
+				
+				  var echartBar = echarts.init(document.getElementById('mainb'), theme);
+
+				  echartBar.setOption({
+					title: {
+					  text: '주문그래프',
+					  subtext: '금년'
+					},
+					tooltip: {
+					  trigger: 'axis'
+					},
+					legend: {
+					  data: ['판매금액', '구매수량']
+					},
+					toolbox: {
+					  show: false
+					},
+					calculable: false,
+					xAxis: [{
+					  type: 'category',
+					  data: [<s:iterator value="listRate2" status="stat">'${datetime}월',</s:iterator>]
+					}],
+					yAxis: [{
+					  type: 'value'
+					}],
+					series: [{
+					  name: '판매금액',
+					  type: 'bar',
+					  data: [<s:iterator value="listRate2" status="stat">${order_price},</s:iterator>],
+					  /*data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],*/
+					  markPoint: {
+						data: [{
+						  type: 'max',
+						  name: '최고치'
+						}, {
+						  type: 'min',
+						  name: '최저치'
+						}]
+					  },
+					  markLine: {
+						data: [{
+						  type: 'average',
+						  name: '평균'
+						}]
+					  }
+					}, {
+					  name: '구매수량',
+					  type: 'bar',
+					  data: [<s:iterator value="listRate2" status="stat">${order_qty},</s:iterator>],
+					  markPoint: {
+						data: [{
+						  name: '판매금액',
+						  value: ${resultClass.order_price},
+						  xAxis: 12,
+						  yAxis: ${resultClass.order_price},
+						}, {
+						  name: '구매수량',
+						  value: ${resultClass.order_qty},
+						  xAxis: 12,
+						  yAxis: ${resultClass.order_qty}
+						}]
+					  },
+					  markLine: {
+						data: [{
+						  type: 'average',
+						  name: '평균'
+						}]
+					  }
+					}]
+				  });
+
+			}			
+			
+		}; 
+
+
+  	$(function() {
+  		
+  		init_morris_charts();  	
+
+	});
+
+  	$(function () {
+  		
+  		$("#refund_order_button").click(function () {
+  			$('form[name=refund_order_form]').attr({action:'/icase/adminRefundPro.action', method:'post'}).submit();
+  		});
+  		
+  		$("#back_order_button").click(function () {
+  			$('form[name=back_order_form]').attr({action:'/icase/adminBackPro.action', method:'post'}).submit();
+  		});  		
+  		
+  		$("#change_order_button").click(function () {
+  			$('form[name=change_order_form]').attr({action:'/icase/adminChangePro.action', method:'post'}).submit();
+  		});   		
+  				
+  		
+  	});
+
+</script>  
