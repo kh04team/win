@@ -1,0 +1,35 @@
+<!--¸Þ¸ð -->
+		<action name="memolist" class="user.memolistAction" >
+	     <result name="success" type="tiles">memolist</result>
+	      <result name="login">/customer/user/loginForm.jsp</result>
+	      
+	    </action>
+	    
+	    <action name="memowriteform" class="user.memowriteAction" method="form"  >
+	     <result name="success" type="tiles">memowrite</result>
+	      	      
+	    </action>
+	    
+	    <action name="memowrite" class="user.memowriteAction" >
+	     <result type="redirect-action">
+	     <param name="actionName">memolist</param>
+	     </result> 	      
+	    </action>
+	    
+	     <action name="memolistview" class="user.memolistviewAction" >
+	     <result name="success" type="tiles">memolistview</result>
+	           
+	    </action>
+	    
+	    <action name="memodelete" class="user.memodeleteAction">
+		 <result name="success" type="redirect">memolist.action</result>
+		</action>
+
+	    <action name="memoSearchForm" class="user.memoSearch">
+		 <result name="success">/customer/user/search_id.jsp</result>
+		</action>	    
+
+	    <action name="memoSearch" class="user.memoSearch" method="search">
+		 <result name="success">/customer/user/search_id.jsp</result>
+		</action>	
+		

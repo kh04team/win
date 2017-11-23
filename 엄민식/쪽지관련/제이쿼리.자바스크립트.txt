@@ -1,0 +1,42 @@
+
+
+
+
+
+	function searchform()
+	{
+		window.open("/icase/memoSearchForm.action", "", "width=600, height=600, left=600, top=500");
+	}
+
+
+
+
+
+$(function() {
+		
+	$("#sendmessage").click(function () {
+			
+			if($("input[name=recive_id]").val() == "")
+			{
+				alert("받을 사람을 입력하세요.");
+				$("input[name=recive_id]").focus();
+				return false;
+			}
+
+			if($("input[name=subject]").val() == "")
+			{
+				alert("제목을 입력 해주세요.");
+				$("input[name=subject]").focus();
+				return false;
+			}
+			
+			if($("input[name=content]").val() == "")
+			{
+				alert("내용을 입력 해주세요.");
+				$("input[name=content]").focus();
+				return false;
+			}
+			
+			$('form[name=onsubmit]').attr({action:'memowrite.action', method:'post'}).submit();
+			
+		});

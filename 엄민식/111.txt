@@ -1,5 +1,0 @@
-  <action name="goodsSettle">
-	     <result name="success" type="tiles">
-	     goodsSettle
-	     </result>
-	    </action>

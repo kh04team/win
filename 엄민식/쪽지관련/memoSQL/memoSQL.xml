@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN'
+	'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="memo">
+	
+	
+	<typeAlias alias="memo" type="user.memoVO"/>
+	<typeAlias alias="member" type="member.member_bin"/>
+	
+	<resultMap id="memoRes" class="memo">
+	      
+	    <result property="no" column="no" />
+        <result property="subject" column="subject" />
+		
+		<result property="content" column="content" />
+		<result property="send_id" column="send_id" />
+	    <result property="recive_id"  column="recive_id" />   
+	     <result property="regdate"  column="regdate" />   
+	      
+	</resultMap>	
+	
+	<resultMap id="memberRes" class="member">
+	      
+	    <result property="id" column="id" />  
+	      
+	</resultMap>	
+		
+	<insert id="insertmemo" parameterClass="memo">
+		INSERT INTO memo(no, subject, recive_id,content,send_id,regdate)
+		VALUES (memo_no_seq.NEXTVAL, #subject#,#recive_id#,#content#,#send_id#,#regdate#)
+	</insert>
+
+	<select id="selectAllSearch" resultMap="memberRes" parameterClass="memo">
+		 select id from member where id like #search_id# and id != #search_not_id# ORDER BY no DESC
+		      
+	</select>	
+
+	<select id="selectAll" resultMap="memoRes" parameterClass="String">
+			select * from memo where recive_id= #check_id# ORDER BY no DESC
+	</select>		
+     
+     <select id="selectOne" resultMap="memoRes" parameterClass="int">
+			select * from memo where no = #no# ORDER BY no DESC
+	</select>	
+    
+    <delete id="deletememo" parameterClass="memo">
+			DELETE FROM memo where no = #no# 
+			
+    </delete>
+     
+	
+</sqlMap>
+
+
+sqlMapConfig.xml에 밑에 한줄 추가
+
+<sqlMap resource="/sql/memoSQL.xml" />

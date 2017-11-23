@@ -1,0 +1,21 @@
+	<!--¸Þ¸ð  -->
+	<definition name="memolist" template="/customer/main.jsp" > 
+		<put-attribute name="header" value="/customer/header.jsp" />
+		<put-attribute name="footer" value="/customer/footer.jsp" />
+		<put-attribute name="body" value="/customer/user/memolist.jsp" />    
+	</definition>
+
+	<definition name="memowrite" template="/admin/production/adminmain.jsp" > 
+	    <put-attribute name="header" value="/admin/production/adminheader.jsp" />
+		<put-attribute name="leftmenu" value="/admin/production/leftmenu.jsp" />
+		<put-attribute name="top" value="/admin/production/topnavi.jsp" />
+		<put-attribute name="body" value="/admin/production/memowrite.jsp" />    
+	</definition> 
+	
+	
+	
+	<definition name="memolistview" template="/customer/main.jsp" > 
+		<put-attribute name="header" value="/customer/header.jsp" />
+		<put-attribute name="footer" value="/customer/footer.jsp" />
+		<put-attribute name="body" value="/customer/user/memolistview.jsp" />    
+	</definition>
